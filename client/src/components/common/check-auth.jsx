@@ -5,6 +5,7 @@ function CheckAuth({ isAuthenticated, user, children }) {
 
   if (location.pathname === "/") {
     if (!isAuthenticated) {
+      console.log(isAuthenticated,"isAuthenticated")
       return <Navigate to="/auth/login" />;
     } else {
       if (user?.role === "admin") {
@@ -30,8 +31,9 @@ function CheckAuth({ isAuthenticated, user, children }) {
     isAuthenticated && (location.pathname.includes("/login") || 
     location.pathname.includes("/register"))
   ) {
+    console.log(user,"role")
     if (user?.role === "admin") {
-    
+      
       return <Navigate to={"/admin/dashboard"} />;
     } else {
       return <Navigate to={"/shop/home"} />;
