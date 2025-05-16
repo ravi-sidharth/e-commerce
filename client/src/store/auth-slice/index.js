@@ -36,7 +36,7 @@ export const checkAuth = createAsyncThunk('/auth/checkauth',
         const response = await axios.get('http://localhost:3000/api/auth/check-auth', {
             withCredentials: true,
             headers: {
-                'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+                "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
             }
         },
         )
@@ -67,25 +67,19 @@ const authSlice = createSlice({
             state.user = null
             state.isAuthenticated = false
         })
-    },
-
-    extraReducers: (builder) => {
-        builder.addCase(loginUser.pending, (state) => {
-            state.isLoading = true
-        }).addCase(loginUser.fulfilled, (state, action) => {
-            console.log(action.payload.user, "user")
-            state.isLoading = false
-            state.isAuthenticated = action.payload.success ? true : false
-            state.user = action.payload.success ? action.payload.user : null
-        }).addCase(loginUser.rejected, (state, action) => {
-            state.isLoading = false,
-            state.isAuthenticated = false,
-            state.user = false
-        })
-    },
-
-    extraReducers: (builder) => {
-        builder.addCase(checkAuth.pending, (state) => {
+            .addCase(loginUser.pending, (state) => {
+                state.isLoading = true
+            }).addCase(loginUser.fulfilled, (state, action) => {
+                console.log(action, "user")
+                state.isLoading = false
+                state.isAuthenticated = action.payload.success ? true : false
+                state.user = action.payload.success ? action.payload.user : null
+            }).addCase(loginUser.rejected, (state, action) => {
+                state.isLoading = false,
+                    state.isAuthenticated = false,
+                    state.user = null
+            })
+        .addCase(checkAuth.pending, (state) => {
             state.isLoading = true
         }).addCase(checkAuth.fulfilled, (state, action) => {
             state.isLoading = false

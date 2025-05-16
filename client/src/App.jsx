@@ -18,6 +18,8 @@ import CheckAuth from "./components/common/check-auth";
 import UnAuth from "./pages/unauth-page";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./store/auth-slice";
+import { Skeleton } from "@/components/ui/skeleton"
+
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector((state) => state.auth);
@@ -29,13 +31,25 @@ function App() {
     dispatch(checkAuth()) 
   },[dispatch])
 
+  console.log(location.pathname,"pathname" , isAuthenticated,"isAuthenticated")
+
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Skeleton className="w-[100px] h-[20px] bg-gray-300 rounded-full" />
+
   }
 
   return (
     <div className="flex flex-col justify-center items-center overflow-hidden bg-white">
       <Routes>
+      <Route
+          path="/"
+          element={
+            <CheckAuth
+              isAuthenticated={isAuthenticated}
+              user={user}
+            ></CheckAuth>
+          }
+        />
         <Route
           path="/auth"
           element={
@@ -76,14 +90,7 @@ function App() {
           <Route path="account" element={<ShoppingAccount />} />
         </Route>
         <Route path="unauth-page" element={<UnAuth />} />
-        <Route
-          path="*"
-          element={
-            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-              <NotFound />
-            </CheckAuth>
-          }
-        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
