@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const connectToMongoDB = require('./db/connectToMongoDB')
 const logger = require('./utils/logger')
 const authRouter = require('./routes/auth-routes/auth-route')
+const adminProductsRouter = require('./routes/admin/products-routes')
 
 const app = express()
 const PORT = process.env.PORT || 3000 
@@ -19,6 +20,7 @@ app.use(corsConfig())
 app.use(helmet())
 
 app.use('/api/auth',authRouter)
+app.use('/api/admin/products',adminProductsRouter)
 
 app.listen(PORT,()=> logger.info(`server is running on port ${PORT}`))
 
