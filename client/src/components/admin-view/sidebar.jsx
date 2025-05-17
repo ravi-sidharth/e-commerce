@@ -61,7 +61,7 @@ function AdminSideBar({ open, setOpen }) {
   
     return (
       <>
-        <Sheet open={open} onOpenChange={setOpen}>
+        <Sheet open={open} onOpenChange={()=>setOpen((prev)=>!prev)}>
           <SheetContent side="left" className="w-64 bg-white z-50 shadow-lg">
             <div className="flex flex-col h-full">
               <SheetHeader className="border-b">
