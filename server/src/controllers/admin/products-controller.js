@@ -3,7 +3,7 @@ const Product = require('../../models/Product')
 const logger = require('../../utils/logger')
 
 
-handleImageUpload = async (req, res) => {
+const handleImageUpload = async (req, res) => {
     try {
         const b64 = Buffer.from(req.file.buffer).toString('base64')
         const url = "data:" + req.file.mimetype + ";base64," + b64
@@ -82,12 +82,12 @@ const fetchAllProducts = async (req,res) => {
 // update a product 
 const updateProductById = async (req,res) => {
     try {
-        const {id} = req.params
+        const {id} = req.params;
         const {image, title, description, category, brand, price, salePrice, totalStock } = req.body;
         const product = await Product.findById(id)
         if(!product) {
             logger.warn('Product not found!')
-            return res.status(404).json({
+            return res.json({
                 success:false,
                 message:'Product not found!'
             })
@@ -97,14 +97,14 @@ const updateProductById = async (req,res) => {
         product.description = description || product.description 
         product.category = category || product.category
         product.brand = brand || product.brand
-        product.price = price || product.price
-        product.salePrice = salePrice || product.salePrice
+        product.price = price === '' ? 0 : price || product.price
+        product.salePrice = salePrice === '' ? 0 : salePrice  || product.salePrice
         product.totalStock = totalStock || product.totalStock
 
         await product.save()
 
         logger.info('Successfully updated the product')
-        res.status(200).json({
+        res.json({
             success:true,
             message:'Successfully updated the product',
             data: product

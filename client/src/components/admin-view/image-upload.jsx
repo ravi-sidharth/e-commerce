@@ -47,11 +47,11 @@ function ProductImageUpload({
       "http://localhost:3000/api/admin/products/upload-image",
       data
     );
-    console.log(response.data.result.url, "url");
+    console.log(response?.data?.result.url, "url");
     if (response?.data?.success) {
       setUploadedImageUrl(response?.data?.result?.url);
-      setImageLoadingState(false);
     }
+    setImageLoadingState(false);
   };
 
   useEffect(() => {

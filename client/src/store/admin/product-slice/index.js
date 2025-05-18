@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, isPending } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -31,7 +31,9 @@ export const fetchAllProducts = createAsyncThunk(
 
 export const editProduct = createAsyncThunk(
     '/products/editproduct',
-    async (id, formData) => {
+    async ({ id, formData }) => {
+        console.log(id, formData, "edit data")
+
         const response = await axios.put(
             `http://localhost:3000/api/admin/products/edit/${id}`,
             formData, {
@@ -46,14 +48,14 @@ export const editProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
     '/products/deleteproduct',
-    async (id, formData) => {
+    async (id) => {
         const response = await axios.delete(
             `http://localhost:3000/api/admin/products/delete/${id}`,
-            formData, {
-            headers: {
-                'Content-Type': 'application/json'
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
-        }
         )
         return response?.data
     }
@@ -68,9 +70,8 @@ const AdminProductsSlice = createSlice({
         builder.addCase(fetchAllProducts.pending, (state) => {
             state.isLoading = true
         }).addCase(fetchAllProducts.fulfilled, (state, action) => {
-            console.log(action.payload, "appnewproduct payload")
             state.isLoading = false
-            state.products = action.payload
+            state.products = action.payload.data
         }).addCase(fetchAllProducts.rejected, (state) => {
             state.isLoading = false
             state.products = []
@@ -79,6 +80,6 @@ const AdminProductsSlice = createSlice({
     }
 })
 
-export const {} = AdminProductsSlice.actions
+export const { } = AdminProductsSlice.actions
 
 export default AdminProductsSlice.reducer
