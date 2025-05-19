@@ -105,3 +105,54 @@ export const addProductFormElements = [
         placeholder:'Enter total stock'
     },
 ]
+
+
+export const shoppingViewHeaderMenuItems = [
+    {
+        id:'home',
+        label:'Home',
+        path:'/shop/home'
+    },
+    {
+        id:'men',
+        label:'Men',
+        path:'/shop/listing'
+    },
+    {
+        id:'women',
+        label:'Women',
+        path:'/shop/listing'
+    },
+    {
+        id:'kids',
+        label:'Kids',
+        path:'/shop/listing'
+    },
+    {
+        id:'accesories',
+        label:'Accessories',
+        path:'/shop/listing'
+    },
+    {
+        id:'footwear',
+        label:'Footwear',
+        path:'/shop/listing'
+    }
+]
+
+export const filterOptions = {
+    category: [
+        {id:'men',lable:'Men'},
+        {id:'women',lable:'Women'},
+        {id:'kids',lable:'Kids'},
+        {id:'accessories',lable:'Accessories'},
+        {id:'footwear',lable:'Footwear'},
+    ],
+    brand: [
+        {id:'puma', label:'Puma'},
+        {id:'nike', label:'Nike'},
+        {id:'addidas', label:'Addidas'},
+        {id:'h&m', label:'H&M'},
+        {id:'levi', label:'Levi'},
+    ]
+}

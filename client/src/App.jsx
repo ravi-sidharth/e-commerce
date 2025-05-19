@@ -39,7 +39,7 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center overflow-hidden bg-white">
+    <div className="flex flex-col justify-center overflow-hidden bg-white">
       <Routes>
       <Route
           path="/"
