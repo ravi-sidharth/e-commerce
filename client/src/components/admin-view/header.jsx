@@ -17,7 +17,7 @@ function AdminHeader({setOpen}) {
     })  
   }
   return (
-    <header className="flex justify-between items-center px-4 py-3 border-b">
+    <header className="flex justify-between items-center px-4 py-3">
       <Button 
       className={`lg:hidden sm:block bg-gray-700 text-white`}
       onClick ={()=>setOpen(true)}

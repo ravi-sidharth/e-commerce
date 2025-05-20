@@ -142,11 +142,11 @@ export const shoppingViewHeaderMenuItems = [
 
 export const filterOptions = {
     category: [
-        {id:'men',lable:'Men'},
-        {id:'women',lable:'Women'},
-        {id:'kids',lable:'Kids'},
-        {id:'accessories',lable:'Accessories'},
-        {id:'footwear',lable:'Footwear'},
+        {id:'men',label:'Men'},
+        {id:'women',label:'Women'},
+        {id:'kids',label:'Kids'},
+        {id:'accessories',label:'Accessories'},
+        {id:'footwear',label:'Footwear'},
     ],
     brand: [
         {id:'puma', label:'Puma'},
@@ -156,3 +156,10 @@ export const filterOptions = {
         {id:'levi', label:'Levi'},
     ]
 }
+
+export const sortOptions = [
+    {id:"price-lowtohigh", label:"Price: Low to High" },
+    {id:"price-hightolow", label:"Price: High to Low" },
+    {id:"title-atoz", label:"Title: A to Z" },
+    {id:"title-ztoa", label:"Title: Z to A" },
+]
