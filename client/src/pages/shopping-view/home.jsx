@@ -11,7 +11,7 @@ function ShoppingHome() {
         </div>
       )
   }
-  return <div className="primary-text bg-primary-foreground" > Shopping home page</div>;
+  return <div className="" > Shopping home page</div>;
 }
 
 export default ShoppingHome;

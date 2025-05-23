@@ -80,6 +80,6 @@ const AdminProductsSlice = createSlice({
     }
 })
 
-export const { } = AdminProductsSlice.actions
+export const {} = AdminProductsSlice.actions
 
 export default AdminProductsSlice.reducer

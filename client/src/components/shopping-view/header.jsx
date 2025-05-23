@@ -52,7 +52,7 @@ function HeaderRightContent() {
     });
   }
   return (
-    <div className="flex lg:items-center lg:flex-row flex-col gap-4 px-6">
+    <div className="flex lg:items-center lg:flex-row flex-col gap-4 px-6 bg-white">
       <Button variant="outline" size="icon">
         <ShoppingCart className="h-6 w-6" />
         <span className="sr-only">User cart</span>

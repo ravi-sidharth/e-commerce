@@ -16,17 +16,17 @@ function AdminProductTile({
   handleDelete
 }) {
   return (
-    <Card key={product._id} className="w-full max-w-sm mx-auto ">
+    <Card key={product._id} className="w-full max-w-sm mx-auto border-none">
       <div>
         <div className="relative">
           <img
             src={product?.image}
             alt={product?.title}
-            className="w-full h-[300px] object-cover rounded-t-lg"
+            className="w-full h-[300px] object-contain rounded-t-lg"
           />
         </div>
         <CardContent className="">
-          <h2 className={`text-xl font-bold mb-2 mt-2 `}>{product?.title}</h2>
+          <h2 className={`text-xl font-bold mb-2 mt-2 line-clamp-2`}>{product?.title}</h2>
           <div className={"flex justify-between items-center mb-2"}>
             <span
               className={`${

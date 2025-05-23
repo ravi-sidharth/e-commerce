@@ -163,3 +163,4 @@ export const sortOptions = [
     {id:"title-atoz", label:"Title: A to Z" },
     {id:"title-ztoa", label:"Title: Z to A" },
 ]
+
