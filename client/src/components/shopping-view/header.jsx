@@ -52,7 +52,7 @@ function HeaderRightContent() {
     });
   }
   return (
-    <div className="flex lg:items-center lg:flex-row flex-col gap-4 px-6 bg-white">
+    <div className="flex lg:items-center lg:flex-row flex-col gap-4 px-6 ">
       <Button variant="outline" size="icon">
         <ShoppingCart className="h-6 w-6" />
         <span className="sr-only">User cart</span>
@@ -65,7 +65,7 @@ function HeaderRightContent() {
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side="right" className="w-56">
+        <DropdownMenuContent side="bottom" className="w-56 bg-white outline-none border-none ">
           <DropdownMenuLabel>Logged in as {user?.userName} </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => navigate("/shop/account")}>
@@ -89,7 +89,7 @@ function ShoppingHeader() {
   console.log(user, "userInfo");
 
   return (
-    <header className="sticky top-0 z-40 w-full">
+    <header className="sticky top-0 z-40 w-full bg-white">
       <div className="flex h-16 justify-between items-center px-4 md:px-6">
         <Link to="/shop/home" className="flex items-center gap-2">
           <HousePlug className="h-6 w-6" />
@@ -102,7 +102,7 @@ function ShoppingHeader() {
               <span className="sr-only">Toggle header menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-full max-w-xs">
+          <SheetContent side="left" className="w-full max-w-xs bg-white">
             <MenuItems />
             <HeaderRightContent/>
           </SheetContent>

@@ -18,30 +18,35 @@ import CheckAuth from "./components/common/check-auth";
 import UnAuth from "./pages/unauth-page";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./store/auth-slice";
-import { Skeleton } from "@/components/ui/skeleton"
-
+import { Skeleton } from "@/components/ui/skeleton";
+import { motion } from "motion/react";
 
 function App() {
-  const { user, isAuthenticated, isLoading } = useSelector((state) => state.auth);
-  console.log(user,isAuthenticated, isLoading,"state data ")
-  const dispatch = useDispatch()
+  const { user, isAuthenticated, isLoading } = useSelector(
+    (state) => state.auth
+  );
+  console.log(user, isAuthenticated, isLoading, "state data ");
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
 
-  useEffect(()=> {
-    dispatch(checkAuth()) 
-  },[dispatch])
-
-  console.log(location.pathname,"pathname" , isAuthenticated,"isAuthenticated")
+  console.log(
+    location.pathname,
+    "pathname",
+    isAuthenticated,
+    "isAuthenticated"
+  );
 
   if (isLoading) {
-    return <Skeleton className="w-[100px] h-[20px] bg-gray-300 rounded-full" />
-
+    return <Skeleton className="w-[100px] h-[20px] bg-gray-300 rounded-full" />;
   }
 
   return (
-    <div className="flex flex-col justify-center overflow-hidden bg-white">
+    <div className="flex flex-col justify-center  bg-white">
       <Routes>
-      <Route
+        <Route
           path="/"
           element={
             <CheckAuth
