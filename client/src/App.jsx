@@ -19,7 +19,7 @@ import UnAuth from "./pages/unauth-page";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./store/auth-slice";
 import { Skeleton } from "@/components/ui/skeleton";
-import { motion } from "motion/react";
+import { motion,useScroll,useTransform } from "motion/react";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -44,7 +44,7 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col justify-center  bg-white">
+    <div className="flex flex-col justify-center bg-white">
       <Routes>
         <Route
           path="/"
@@ -97,6 +97,7 @@ function App() {
         <Route path="unauth-page" element={<UnAuth />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      
     </div>
   );
 }

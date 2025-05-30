@@ -119,7 +119,7 @@ function AdminProducts() {
       <div className="w-full flex justify-end mb-5 ">
         <Button
           onClick={() => setOpenCreateProductsDialog(true)}
-          className="bg-gray-700 text-white font-medium"
+          className="bg-gray-950 text-white font-bold"
         >
           Add New Product
         </Button>

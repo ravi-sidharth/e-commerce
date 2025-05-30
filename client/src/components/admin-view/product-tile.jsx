@@ -45,10 +45,10 @@ function AdminProductTile({
             setOpenCreateProductsDialog(true)
             setCurrentEditedId(product?._id)    
             setFormData(product)
-          }} className="bg-gray-950 text-white">Edit</Button>
+          }} className="bg-gray-950 text-white font-bold">Edit</Button>
           <Button onClick={() => {
             handleDelete(product?._id)
-          }} className="bg-gray-950 text-white">Delete</Button>
+          }} className="bg-gray-950 text-white font-bold">Delete</Button>
         </CardFooter>
       </div>
     </Card>
