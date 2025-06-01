@@ -33,6 +33,8 @@ function createSearchParamsHelper(filterParams) {
 
 function ShoppingListing() {
   const { products,productDetails } = useSelector((state) => state.userProducts);
+  const { cartItems } = useSelector((state) => state.shopCart);
+
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null);
@@ -142,7 +144,7 @@ function ShoppingListing() {
             : null}
         </div>
       </div>
-      <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails}/>
+      <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails} cartItems={cartItems} />
     </div>
   );
 }
