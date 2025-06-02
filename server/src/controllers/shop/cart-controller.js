@@ -41,7 +41,7 @@ const addToCart = async (req, res) => {
             success: true,
             data: cart
         })
-    } catch (e) {
+    } catch (err) {
         logger.error(err.message)
         res.status(500).json({
             success: false,
@@ -94,7 +94,7 @@ const fetchCartItems = async (req, res) => {
                 items: populateCartItems
             }
         })
-    } catch (e) {
+    } catch (err) {
         logger.error(err.message)
         res.status(500).json({
             success: false,
@@ -102,7 +102,6 @@ const fetchCartItems = async (req, res) => {
         })
     }
 }
-
 
 const updateCartItemQty = async (req, res) => {
     try {
@@ -154,7 +153,7 @@ const updateCartItemQty = async (req, res) => {
             }
         })
 
-    } catch (e) {
+    } catch (err) {
         logger.error(err.message)
         res.status(500).json({
             success: false,
@@ -162,8 +161,6 @@ const updateCartItemQty = async (req, res) => {
         })
     }
 }
-
-
 
 
 const deleteCartItem = async (req, res) => {
@@ -211,7 +208,7 @@ const deleteCartItem = async (req, res) => {
             }
         })
 
-    } catch (e) {
+    } catch (err) {
         logger.error(err.message)
         res.status(500).json({
             success: false,

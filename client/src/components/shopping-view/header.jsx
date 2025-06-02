@@ -22,6 +22,8 @@ import {
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { logoutUser } from "@/store/auth-slice";
 import { toast } from "sonner";
+import UserCartWrapper from "./cart-wrapper";
+import { useState } from "react";
 
 function MenuItems() {
   return (
@@ -41,6 +43,8 @@ function MenuItems() {
 
 function HeaderRightContent() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.shopCart);
+  const [openCartSheet, setOpenCartSheet] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -53,10 +57,14 @@ function HeaderRightContent() {
   }
   return (
     <div className="flex lg:items-center lg:flex-row flex-col gap-4 px-6 ">
-      <Button variant="outline" size="icon">
-        <ShoppingCart className="h-6 w-6" />
-        <span className="sr-only">User cart</span>
-      </Button>
+      <Sheet open={openCartSheet} onOpenChange={()=>setOpenCartSheet(!openCartSheet)} >
+        <Button onClick={()=>setOpenCartSheet(true)} variant="outline" size="icon">
+          <ShoppingCart className="h-6 w-6" />
+          <span className="sr-only">User cart</span>
+        </Button>
+        <UserCartWrapper cartItems={cartItems} />
+      </Sheet>
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="bg-black">
@@ -65,7 +73,10 @@ function HeaderRightContent() {
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side="bottom" className="w-56 bg-white outline-none border-none ">
+        <DropdownMenuContent
+          side="bottom"
+          className="w-56 bg-white outline-none border-none "
+        >
           <DropdownMenuLabel>Logged in as {user?.userName} </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => navigate("/shop/account")}>
@@ -104,7 +115,7 @@ function ShoppingHeader() {
           </SheetTrigger>
           <SheetContent side="left" className="w-full max-w-xs bg-white">
             <MenuItems />
-            <HeaderRightContent/>
+            <HeaderRightContent />
           </SheetContent>
         </Sheet>
         <div className="hidden lg:block">

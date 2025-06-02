@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
+import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import { fetchAllFilteredProducts, fetchProductDetails } from "@/store/shop/product-slice";
 import { ArrowUpDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ function createSearchParamsHelper(filterParams) {
 
 function ShoppingListing() {
   const { products,productDetails } = useSelector((state) => state.userProducts);
-  const { cartItems } = useSelector((state) => state.shopCart);
+  const {user} = useSelector(state=>state.auth)
 
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({});
@@ -74,6 +75,21 @@ function ShoppingListing() {
     dispatch(fetchProductDetails(getCurrentProductId))
 
   }
+
+  function handleAddToCart(getCurrentProductId) {
+    console.log(getCurrentProductId,"getCurrentProductId")
+    dispatch(addToCart({
+      userId:user?.id,
+      productId:getCurrentProductId, 
+      quantity:1
+    })).then(data=> {
+      console.log(data,"addToCart Data")
+      if (data?.payload?.success) {
+        dispatch(fetchCartItems(user?.id))
+      }
+    })
+  }
+
   useEffect(() => {
     setSort("price-hightolow");
     setFilters(JSON.parse(sessionStorage.getItem("filters")) || {});
@@ -139,12 +155,12 @@ function ShoppingListing() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
           {products && products.length > 0
             ? products.map((productItem) => (
-                <ShoppingProductTile handleGetProductDetails={handleGetProductDetails} product={productItem} />
+                <ShoppingProductTile handleGetProductDetails={handleGetProductDetails} product={productItem} handleAddToCart={handleAddToCart} />
               ))
             : null}
         </div>
       </div>
-      <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails} cartItems={cartItems} />
+      <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails}  />
     </div>
   );
 }
