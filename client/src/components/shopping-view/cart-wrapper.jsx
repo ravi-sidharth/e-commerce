@@ -3,6 +3,7 @@ import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import UserCartItemsContent from "./cart-items-content";
 
 function UserCartWrapper({cartItems}) {
+  console.log(cartItems.length,"lenght")
   return (
     <SheetContent className="sm:max-w-md bg-white">
       <SheetHeader>
@@ -12,7 +13,7 @@ function UserCartWrapper({cartItems}) {
         <div className="space-y-4">
           {
             cartItems && cartItems.length > 0 ? 
-            cartItems.map(item=><UserCartItemsContent cartItem={item} />):null
+            cartItems.map(item=><UserCartItemsContent cartItem={item} />): null
           }
         </div>
         <div className="space-y-4">

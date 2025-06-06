@@ -14,9 +14,9 @@ const addToCart = async (req, res) => {
             })
         }
 
-        const product = Product.findById(productId)
+        const product =await Product.findById(productId)
         if (!product) {
-            return res.status(400).json({
+            return res.status(404   ).json({
                 success: false,
                 message: 'Product not found'
             })
@@ -33,7 +33,7 @@ const addToCart = async (req, res) => {
         if (findCurrentProductIndex === -1) {
             cart.items.push({ productId, quantity })
         } else {
-            cart.items[findCurrentProductIndex] += quantity
+            cart.items[findCurrentProductIndex].quantity += quantity
         }
 
         await cart.save()
