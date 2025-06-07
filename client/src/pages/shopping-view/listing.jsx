@@ -19,6 +19,7 @@ import { ArrowUpDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { toast } from 'sonner'
 
 function createSearchParamsHelper(filterParams) {
   const queryParams = [];
@@ -72,7 +73,6 @@ function ShoppingListing() {
     setFilters(cpyFilters);
     sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
 
-    console.log(filters, "filters");
   }
 
   function handleGetProductDetails(getCurrentProductId) {
@@ -92,6 +92,8 @@ function ShoppingListing() {
       console.log(data, "addToCart Data");
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
+        toast.success('Product is added to cart')
+
       }
     });
   }

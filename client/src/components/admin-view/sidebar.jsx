@@ -46,7 +46,7 @@ const MenuItems = ({setOpen}) => {
             navigate(menuItem.path)
             setOpen ? setOpen(false) : null
           }} 
-          className="flex items-center gap-2 rounded-md px-3 py-2 text-xl text-muted-foreground hover:bg-muted hover:text-gray-400 cursor-pointer "
+          className="flex items-center gap-2 rounded-md px-3 py-2 text-xl hover:text-gray-400 cursor-pointer "
         >
           {menuItem.icon}
           <span>{menuItem.label}</span>

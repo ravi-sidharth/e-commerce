@@ -13,7 +13,6 @@ export const addToCart = createAsyncThunk('cart/addToCart', async({userId, produ
 
 export const fetchCartItems = createAsyncThunk('cart/fetchCartItems', async(userId)=> {
     const response = await axios.get(`http://localhost:3000/api/shop/cart/get/${userId}`)
-    console.log(response.data,"fetch CartItems")
     return response.data
 })  
 
@@ -36,7 +35,6 @@ const shoppingCartSlice = createSlice({
             state.isLoading = true
         }).addCase(addToCart.fulfilled ,(state,action)=> {
             state.isLoading = false
-            console.log(action.payload.data.items,"action data")
             state.cartItems = action.payload.data
         }).addCase(addToCart.rejected ,(state)=> {
             state.isLoading = false
