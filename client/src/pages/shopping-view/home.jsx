@@ -27,7 +27,8 @@ import ShoppingProductTile from "@/components/shopping-view/product-tile";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
-import { toast } from "sonner";
+// import { toast } from "sonner"; 
+import ProductDetailsDialog from "@/components/shopping-view/product-details";
 
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
@@ -50,9 +51,10 @@ function ShoppingHome() {
   const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products , productDetails} = useSelector((state) => state.userProducts);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const { products , productDetails} = useSelector((state) => state.shopProducts);
   const {user} = useSelector(state=> state.auth)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [openDetailsDialog,setOpenDetailsDialog] = useState(false)
 
 
   const slides = [bannerOne, bannerTwo, bannerThree];
@@ -62,6 +64,8 @@ function ShoppingHome() {
     const currentFilter = {
       [section]: [getCurrentItem.id],
     };
+
+    
 
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
     navigate("/shop/listing");
@@ -85,7 +89,7 @@ function ShoppingHome() {
     });
   }
 
-  function handleProductDetails(getCurrentProductId) {
+  function handleGetProductDetails(getCurrentProductId) {
     dispatch(fetchProductDetails(getCurrentProductId));
   }
   useEffect(() => {
@@ -105,6 +109,10 @@ function ShoppingHome() {
     );
     console.log(products, "products");
   }, [dispatch]);
+
+  useEffect(() => {
+    if (productDetails !== null) setOpenDetailsDialog(true);
+  }, [productDetails]);
 
 
   if (isLoading) {
@@ -205,7 +213,7 @@ function ShoppingHome() {
           {products && products.length > 0
             ? products.map((productItem) => (
                 <ShoppingProductTile
-                  handleProductDetails={handleProductDetails}
+                handleGetProductDetails={handleGetProductDetails}
                   product={productItem}
                   handleAddToCart={handleAddToCart}
                 />
@@ -213,6 +221,11 @@ function ShoppingHome() {
             : null}
         </div>
       </section>
+      <ProductDetailsDialog
+        open={openDetailsDialog}
+        setOpen={setOpenDetailsDialog}
+        productDetails={productDetails}
+      />
     </div>
   );
 }

@@ -38,7 +38,7 @@ function createSearchParamsHelper(filterParams) {
 
 function ShoppingListing() {
   const { products, productDetails } = useSelector(
-    (state) => state.userProducts
+    (state) => state.shopProducts
   );
   const { user } = useSelector((state) => state.auth);
 

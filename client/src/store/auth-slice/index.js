@@ -61,11 +61,7 @@ export const checkAuth = createAsyncThunk('/auth/checkauth',
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {
-        setUser: (state, action) => {
-
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state) => {
             state.isLoading = true
@@ -90,21 +86,21 @@ const authSlice = createSlice({
                     state.isAuthenticated = false,
                     state.user = null
             })
-        .addCase(checkAuth.pending, (state) => {
-            state.isLoading = true
-        }).addCase(checkAuth.fulfilled, (state, action) => {
-            state.isLoading = false
-            state.isAuthenticated = action.payload.success ? true : false
-            state.user = action.payload.success ? action.payload.user : null
-        }).addCase(checkAuth.rejected, (state, action) => {
-            state.isLoading = false
-            state.isAuthenticated = false
-            state.user = null
-        }).addCase(logoutUser.fulfilled, (state, action) => {
-            state.isLoading = false
-            state.isAuthenticated = false
-            state.user = null
-        })
+            .addCase(checkAuth.pending, (state) => {
+                state.isLoading = true
+            }).addCase(checkAuth.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isAuthenticated = action.payload.success ? true : false
+                state.user = action.payload.success ? action.payload.user : null
+            }).addCase(checkAuth.rejected, (state, action) => {
+                state.isLoading = false
+                state.isAuthenticated = false
+                state.user = null
+            }).addCase(logoutUser.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isAuthenticated = false
+                state.user = null
+            })
     }
 })
 

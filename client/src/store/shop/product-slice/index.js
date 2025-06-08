@@ -28,8 +28,8 @@ export const fetchProductDetails = createAsyncThunk(
     }
 )
 
-const UserProductsSlice = createSlice({
-    name:'userProducts',
+const shopProductsSlice = createSlice({
+    name:'shopProducts',
     initialState,
     reducers : {
         setProductsDetail: (state) => {
@@ -59,6 +59,6 @@ const UserProductsSlice = createSlice({
     }
 })
 
-export const {setProductsDetail} = UserProductsSlice.actions
+export const {setProductsDetail} = shopProductsSlice.actions
 
-export default UserProductsSlice.reducer
+export default shopProductsSlice.reducer
