@@ -6,7 +6,7 @@ import { Separator } from "../ui/separator";
 
 function ShoppingOrdersDetailsView() {
   return (
-    <DialogContent className="sm:max-w-[400px]  bg-white">
+    <DialogContent className="sm:max-w-[600px]  bg-white">
       <div className="grid gap-6 ">
         <div className="grid gap-2">
           <div className="flex items-center justify-between mt-6">

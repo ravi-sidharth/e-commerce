@@ -43,7 +43,7 @@ function ShoppingCheckout() {
             </div>
           </div>
           <div className="mt-4 w-full bg-gray-950 text-white font-bold text-center rounded-md">
-            <Button className="">Checkout with Paypal</Button>
+            <Button  className="">Checkout with Paypal</Button>
           </div>
         </div>
       </div>
