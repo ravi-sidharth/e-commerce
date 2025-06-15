@@ -3,9 +3,9 @@ import { Card, CardContent, CardFooter } from "../ui/card"
 import { Button } from "../ui/button"
 
 
-function AddressCart({addressInfo, handleDeleteAddress, handleEditedAddress}) {
+function AddressCart({addressInfo, handleDeleteAddress, handleEditedAddress, setCurrentSelectedAddress}) {
     return (
-        <Card className="border-none">
+        <Card onClick={()=>setCurrentSelectedAddress(addressInfo)} className="border-none">
             <CardContent className="grid gap-4 ">
                 <Label><span className="font-bold">Address: </span> {addressInfo?.address}</Label>
                 <Label><span className="font-bold">City: </span>{addressInfo?.city}</Label>

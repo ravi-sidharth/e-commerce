@@ -18,6 +18,8 @@ const createOrder = async (req, res) => {
       orderUpdateDate,
     } = req.body;
 
+    console.log(cartItems,"cartItesm")
+
     const returnUrl = process.env.RETURN_URL;
     const cancelUrl = process.env.CANCEL_URL;
 
@@ -40,6 +42,8 @@ const createOrder = async (req, res) => {
       paypalOrderId: paypalOrder.id,
     });
     await newlyCreatedOrder.save();
+
+    console.log(newlyCreatedOrder,"newlycreatedorder")
 
     res.status(201).json({
       success: true,
