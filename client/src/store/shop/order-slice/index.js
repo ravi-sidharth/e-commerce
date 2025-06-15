@@ -37,7 +37,7 @@ const shoppingOrderSlice = createSlice({
     initialState,
     reducers:{
         resetOrderDetails: (state) => {
-            state.isLoading = null
+            state.orderDetails = null
         }
     },
     extraReducers: (builder) => {

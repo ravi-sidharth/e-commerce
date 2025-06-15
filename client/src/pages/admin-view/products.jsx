@@ -38,7 +38,7 @@ function AdminProducts() {
   const [imageLoadingState, setImageLoadingState] = useState(false);
   const [currentEditedId, setCurrentEditedId] = useState(null);
 
-  const { products } = useSelector((state) => state.AdminProducts);
+  const { products } = useSelector((state) => state.adminProducts);
   const dispatch = useDispatch();
 
   const onSubmit = (event) => {

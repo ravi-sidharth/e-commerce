@@ -6,6 +6,9 @@ import { Separator } from "../ui/separator";
 
 
 function ShoppingOrdersDetailsView({orderDetails,userName}) {
+
+
+
   return (
     <DialogContent className="sm:max-w-[600px]  bg-white">
       <div className="grid gap-6 ">
@@ -22,6 +25,14 @@ function ShoppingOrdersDetailsView({orderDetails,userName}) {
             <p className="font-medium">Order Amount</p>
             <Label>${orderDetails?.totalAmount}</Label>
           </div>
+          <div className="flex items-center justify-between">
+            <p className="font-medium">Payment method</p>
+            <Label>{orderDetails?.paymentMethod}</Label>
+          </div>
+          <div className="flex items-center justify-between">
+            <p className="font-medium">Payment Status</p>
+            <Label>{orderDetails?.paymentStatus}</Label>
+          </div>
           <div className="flex items-center justify-between ">
             <p className="font-medium">Order Status</p>
             <Label><Badge className={`font-bold text-white rounded-full ${orderDetails?.orderStatus=='Confirmed' ? 'bg-green-500':'bg-black'}`}>{orderDetails?.orderStatus}</Badge></Label>
@@ -36,9 +47,9 @@ function ShoppingOrdersDetailsView({orderDetails,userName}) {
                 orderDetails && orderDetails.cartItems && orderDetails.cartItems.length > 0 ?
                 orderDetails?.cartItems.map(item => (
                   <li className="flex items-center justify-between">
-                  <span>{item?.title}</span>
-                  <span>{item?.quantity}</span>
-                  <span>{item?.price }</span>
+                  <span>Title: {item?.title}</span>
+                  <span>Qunatity: {item?.quantity}</span>
+                  <span>Price: ${item?.price }</span>
                 </li>
                 )) : null
               }
