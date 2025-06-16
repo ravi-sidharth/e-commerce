@@ -3,12 +3,7 @@ import { DialogContent } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 
-
-
-function ShoppingOrdersDetailsView({orderDetails,userName}) {
-
-
-
+function ShoppingOrdersDetailsView({ orderDetails, userName }) {
   return (
     <DialogContent className="sm:max-w-[600px]  bg-white">
       <div className="grid gap-6 ">
@@ -19,7 +14,9 @@ function ShoppingOrdersDetailsView({orderDetails,userName}) {
           </div>
           <div className="flex items-center justify-between">
             <p className="font-medium">Order Date</p>
-            <Label>{new Date(orderDetails?.orderDate).toLocaleDateString()}</Label>
+            <Label>
+              {new Date(orderDetails?.orderDate).toLocaleDateString()}
+            </Label>
           </div>
           <div className="flex items-center justify-between">
             <p className="font-medium">Order Amount</p>
@@ -35,7 +32,19 @@ function ShoppingOrdersDetailsView({orderDetails,userName}) {
           </div>
           <div className="flex items-center justify-between ">
             <p className="font-medium">Order Status</p>
-            <Label><Badge className={`font-bold text-white rounded-full ${orderDetails?.orderStatus=='Confirmed' ? 'bg-green-500':'bg-black'}`}>{orderDetails?.orderStatus}</Badge></Label>
+            <Label>
+              <Badge
+                className={`font-bold text-white rounded-full ${
+                  orderDetails?.orderStatus == "Confirmed"
+                    ? "bg-green-500"
+                    : orderDetails?.orderStatus === "rejected"
+                    ? "bg-red-500"
+                    : "bg-black"
+                }`}
+              >
+                {orderDetails?.orderStatus}
+              </Badge>
+            </Label>
           </div>
         </div>
         <Separator />
@@ -43,17 +52,17 @@ function ShoppingOrdersDetailsView({orderDetails,userName}) {
           <div className="grid gap-2">
             <div className="font-medium">Order Details</div>
             <ul className="grid gap-3 ">
-              {
-                orderDetails && orderDetails.cartItems && orderDetails.cartItems.length > 0 ?
-                orderDetails?.cartItems.map(item => (
-                  <li className="flex items-center justify-between">
-                  <span>Title: {item?.title}</span>
-                  <span>Qunatity: {item?.quantity}</span>
-                  <span>Price: ${item?.price }</span>
-                </li>
-                )) : null
-              }
-             
+              {orderDetails &&
+              orderDetails.cartItems &&
+              orderDetails.cartItems.length > 0
+                ? orderDetails?.cartItems.map((item) => (
+                    <li className="flex items-center justify-between">
+                      <span>Title: {item?.title}</span>
+                      <span>Qunatity: {item?.quantity}</span>
+                      <span>Price: ${item?.price}</span>
+                    </li>
+                  ))
+                : null}
             </ul>
           </div>
         </div>

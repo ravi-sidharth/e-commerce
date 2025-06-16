@@ -4,16 +4,30 @@ import { DialogContent } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
+import { useDispatch } from "react-redux";
+import { getAllOrdersForAdmin, getOrderDetailsForAdmin, updateOrderStatus } from "@/store/admin/order-slice";
 
 const initialFormData = {
   status: "",
 };
 
 function AdminOrderDetailView({orderDetails,userName}) {
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState(initialFormData);
 
   function handleUpdateStatus(event) {
+    const {status} = formData
+    console.log(status,"staus")
+
     event.preventDefault()
+    dispatch(updateOrderStatus({id: orderDetails?._id , orderStatus:status})).then(data=> {
+      if (data?.payload?.success) {
+        dispatch(getOrderDetailsForAdmin(orderDetails?._id))
+        dispatch(getAllOrdersForAdmin())
+        setFormData(initialFormData)
+      }
+    })
+
   }
 
   return (
@@ -42,7 +56,9 @@ function AdminOrderDetailView({orderDetails,userName}) {
           </div>
           <div className="flex items-center justify-between ">
             <p className="font-medium">Order Status</p>
-            <Label><Badge className={`font-bold text-white rounded-full ${orderDetails?.orderStatus=='Confirmed' ? 'bg-green-500':'bg-black'}`}>{orderDetails?.orderStatus}</Badge></Label>
+            <Label>
+              <Badge className={`font-bold text-white rounded-full ${orderDetails?.orderStatus=='Confirmed' ? 'bg-green-500': orderDetails?.orderStatus==="rejected"? 'bg-red-500':'bg-black'}`}>{orderDetails?.orderStatus}</Badge>
+            </Label>
           </div>
         </div>
         <Separator />

@@ -67,7 +67,7 @@ function ShoppingOrders() {
                     <TableCell>{orderItem?._id}</TableCell>
                     <TableCell>{(orderItem?.orderDate).split('T')[0]}</TableCell>
                     <TableCell>
-                      <Badge className={`font-bold text-white rounded-full ${orderItem?.orderStatus=='Confirmed' ? 'bg-green-500':'bg-black'}`}>{orderItem?.orderStatus}</Badge>
+                    <Badge className={`font-bold text-white rounded-full ${orderItem?.orderStatus=='Confirmed' ? 'bg-green-500':orderItem?.orderStatus==='rejected' ?'bg-red-500':'bg-black'}`}>{orderItem?.orderStatus}</Badge>
                     </TableCell>
                     <TableCell>${orderItem?.totalAmount}</TableCell>
                     <TableCell>{}</TableCell>

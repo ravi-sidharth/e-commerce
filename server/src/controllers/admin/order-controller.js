@@ -51,7 +51,39 @@ const getOrdersDetailsForAdmin = async (req, res) => {
     }
   }
 
+
+const updateOrderStatus = async(req,res) => {
+  try{
+    const {id} = req.params
+    const {orderStatus} = req.body
+  
+    console.log(req.body,"order staus")
+
+    const order = await Order.findById(id)
+    if(!order) {
+      return res.staus(400).json({
+        success:false,
+        message:'Order not found!'
+      })
+    }
+
+    const orders = await Order.findByIdAndUpdate(id,{orderStatus})
+    console.log(orders,"orders")
+
+    res.status(200).json({
+      success:true,
+      message:'Order status is updated successfully!'
+    })
+  } catch(err) {
+    logger.error(err.message)
+    res.status(500).json({
+      success:false,
+      message:'Some error occured',err
+    })
+  }
+}
 module.exports = {
     getAllOrdersOfAllUsers,
-    getOrdersDetailsForAdmin
+    getOrdersDetailsForAdmin,
+    updateOrderStatus
 }
