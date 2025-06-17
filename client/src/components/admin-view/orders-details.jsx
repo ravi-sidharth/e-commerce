@@ -6,6 +6,7 @@ import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
 import { useDispatch } from "react-redux";
 import { getAllOrdersForAdmin, getOrderDetailsForAdmin, updateOrderStatus } from "@/store/admin/order-slice";
+import { toast } from "sonner";
 
 const initialFormData = {
   status: "",
@@ -17,11 +18,12 @@ function AdminOrderDetailView({orderDetails,userName}) {
 
   function handleUpdateStatus(event) {
     const {status} = formData
-    console.log(status,"staus")
-
+    
     event.preventDefault()
+
     dispatch(updateOrderStatus({id: orderDetails?._id , orderStatus:status})).then(data=> {
       if (data?.payload?.success) {
+        toast.success('Order status updated successfully')
         dispatch(getOrderDetailsForAdmin(orderDetails?._id))
         dispatch(getAllOrdersForAdmin())
         setFormData(initialFormData)

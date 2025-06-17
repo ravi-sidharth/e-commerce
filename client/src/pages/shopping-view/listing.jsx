@@ -19,7 +19,7 @@ import { ArrowUpDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { toast } from 'sonner'
+import { toast } from "sonner";
 
 function createSearchParamsHelper(filterParams) {
   const queryParams = [];
@@ -41,6 +41,7 @@ function ShoppingListing() {
     (state) => state.shopProducts
   );
   const { user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.shopCart);
 
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({});
@@ -48,14 +49,13 @@ function ShoppingListing() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
+  const categorySearchParams = searchParams.get("category");
+
   function handleSort(value) {
-    console.log(value, "sortValue");
     setSort(value);
   }
 
   function handleFilter(getSectionId, getCurrentOption) {
-    console.log(getSectionId, getCurrentOption);
-
     let cpyFilters = { ...filters };
     const indexOfCurrentSection = Object.keys(cpyFilters).indexOf(getSectionId);
     if (indexOfCurrentSection === -1) {
@@ -72,16 +72,30 @@ function ShoppingListing() {
     }
     setFilters(cpyFilters);
     sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
-
   }
 
   function handleGetProductDetails(getCurrentProductId) {
-    console.log(getCurrentProductId, "getCurrentProductId");
     dispatch(fetchProductDetails(getCurrentProductId));
   }
 
-  function handleAddToCart(getCurrentProductId) {
-    console.log(getCurrentProductId, "getCurrentProductId");
+  function handleAddToCart(getCurrentProductId, getTotalStock) {
+    console.log(cartItems, "cartItems");
+
+    let getCartItems = cartItems.items || [];
+
+    if (getCartItems.length) {
+      const indexOfCurrentCartItem = getCartItems.findIndex(
+        (item) => item.productId === getCurrentProductId
+      );
+      if (indexOfCurrentCartItem > -1) {
+        const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;
+        if (getQuantity + 1 > getTotalStock) {
+          toast.error(`Only ${getQuantity} quantity can be added for this item`)
+          return
+        }
+      }
+    }
+
     dispatch(
       addToCart({
         userId: user?.id,
@@ -92,8 +106,7 @@ function ShoppingListing() {
       console.log(data, "addToCart Data");
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
-        toast.success('Product is added to cart')
-
+        toast.success("Product is added to cart");
       }
     });
   }
@@ -101,15 +114,13 @@ function ShoppingListing() {
   useEffect(() => {
     setSort("price-hightolow");
     setFilters(JSON.parse(sessionStorage.getItem("filters")) || {});
-  }, []);
+  }, [categorySearchParams]);
 
   useEffect(() => {
     if (filters && Object.keys(filters).length > 0) {
       const createQueryString = createSearchParamsHelper(filters);
       setSearchParams(new URLSearchParams(createQueryString));
     }
-    console.log(searchParams, "searchParams");
-    console.log(filters, "filters");
   }, [filters]);
 
   useEffect(() => {
@@ -123,6 +134,7 @@ function ShoppingListing() {
     if (productDetails !== null) setOpenDetailsDialog(true);
   }, [productDetails]);
 
+  console.log(products, "products");
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-5 p-4 md:p-6">
       <ProductFilter filters={filters} handleFilter={handleFilter} />

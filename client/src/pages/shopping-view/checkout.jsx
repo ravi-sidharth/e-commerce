@@ -81,9 +81,9 @@ function ShoppingCheckout() {
     })
   }
 
-  // if (approvalURL) {
-  //   window.location.href = approvalURL
-  // }
+  if (approvalURL) {
+    window.location.href = approvalURL
+  }
 
   return (
     <div className="flex flex-col">
