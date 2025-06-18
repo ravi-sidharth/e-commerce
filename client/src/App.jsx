@@ -22,24 +22,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { motion,useScroll,useTransform } from "motion/react";
 import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
+import SearchProducts from "./pages/shopping-view/search";
 
 function App() {
-  const { user, isAuthenticated, isLoading } = useSelector(
-    (state) => state.auth
-  );
-  console.log(user, isAuthenticated, isLoading, "state data ");
+  const { user, isAuthenticated, isLoading } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);
 
-  console.log(
-    location.pathname,
-    "pathname",
-    isAuthenticated,
-    "isAuthenticated"
-  );
 
   if (isLoading) {
     return <Skeleton className="w-[100px] h-[20px] bg-gray-300 rounded-full" />;
@@ -97,6 +89,7 @@ function App() {
           <Route path="account" element={<ShoppingAccount />} />
           <Route path="paypal-return" element={<PaypalReturnPage />} />
           <Route path="payment-success" element={<PaymentSuccessPage />} />
+          <Route path="search" element={<SearchProducts />} />
 
         </Route>
         <Route path="unauth-page" element={<UnAuth />} />

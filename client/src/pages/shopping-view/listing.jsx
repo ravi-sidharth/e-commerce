@@ -40,6 +40,7 @@ function ShoppingListing() {
   const { products, productDetails } = useSelector(
     (state) => state.shopProducts
   );
+  
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.shopCart);
 
