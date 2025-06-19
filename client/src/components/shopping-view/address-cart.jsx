@@ -3,10 +3,11 @@ import { Card, CardContent, CardFooter } from "../ui/card"
 import { Button } from "../ui/button"
 
 
-function AddressCart({addressInfo, handleDeleteAddress, handleEditedAddress, setCurrentSelectedAddress}) {
+function AddressCart({addressInfo, handleDeleteAddress, handleEditedAddress, setCurrentSelectedAddress,selectedId}) {
+    console.log(selectedId,"selectedId")
     return (
-        <Card onClick={()=>setCurrentSelectedAddress(addressInfo)} className="border-none">
-            <CardContent className="grid gap-4 ">
+        <Card onClick={()=>setCurrentSelectedAddress(addressInfo)} className={`cursor-pointer ${selectedId?._id === addressInfo?._id ? 'border-blue-900 border-4':' border-black'}` }>
+            <CardContent className={`grid gap-4 ${selectedId === addressInfo?._id ?'border-black':''}`}>
                 <Label><span className="font-bold">Address: </span> {addressInfo?.address}</Label>
                 <Label><span className="font-bold">City: </span>{addressInfo?.city}</Label>
                 <Label><span className="font-bold">Pin Code: </span>{addressInfo?.pincode}</Label>

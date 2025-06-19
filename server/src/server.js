@@ -14,6 +14,10 @@ const shopCartRouter = require('./routes/shop/cart-route')
 const shopAddressRouter = require('./routes/shop/address-route')
 const shopOrderRouter = require('./routes/shop/order-route')
 const shopSearchRouter = require('./routes/shop/search-route')
+const shopReviewRouter = require('./routes/shop/review-route')
+
+const commonFeatureRouter = require('./routes/common/feature-routes')
+
 
 const app = express()
 const PORT = process.env.PORT || 3000 
@@ -35,6 +39,10 @@ app.use('/api/shop/cart',shopCartRouter)
 app.use('/api/shop/address',shopAddressRouter)
 app.use('/api/shop/order',shopOrderRouter)
 app.use('/api/shop/search',shopSearchRouter)
+app.use('/api/shop/review',shopReviewRouter)
+
+app.use('/api/common/feature',commonFeatureRouter)
+
 
 app.listen(PORT,()=> logger.info(`server is running on port ${PORT}`))
 

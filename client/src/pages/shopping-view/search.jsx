@@ -1,6 +1,8 @@
+import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import ShoppingProductTile from "@/components/shopping-view/product-tile";
 import { Input } from "@/components/ui/input";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
+import { fetchProductDetails } from "@/store/shop/product-slice";
 import {
   getSearchResults,
   resetSearchResults,
@@ -13,11 +15,13 @@ import { toast } from "sonner";
 
 function SearchProducts() {
   const [keyword, setkeyword] = useState("");
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false )
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { searchResults } = useSelector((state) => state.shopSearch);
   const { cartItems } = useSelector((state) => state.shopCart);
   const { user } = useSelector((state) => state.auth);
+  const {productDetails } = useSelector((state) => state.shopProducts);
 
   useEffect(() => {
     if (keyword && keyword.trim() !== null && keyword.trim().length > 3) {
@@ -66,6 +70,14 @@ function SearchProducts() {
     });
   }
 
+  function handleGetProductDetails(getCurrentProductId) {
+    dispatch(fetchProductDetails(getCurrentProductId));
+  }
+
+  useEffect(() => {
+    if (productDetails !== null) setOpenDetailsDialog(true);
+  }, [productDetails]);
+
   return (
     <div className="container mx-auto md:px-6 px-4 py-8">
       <div className="flex justify-center mb-8">
@@ -82,11 +94,20 @@ function SearchProducts() {
       {!searchResults.length ? (
         <h1 className="text-5xl font-extrabold">No Result Found!</h1>
       ) : null}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {searchResults.map((item) => (
-          <ShoppingProductTile product={item} handleAddToCart={handleAddToCart} />
+          <ShoppingProductTile 
+          product={item}
+          handleAddToCart={handleAddToCart} 
+          handleGetProductDetails={handleGetProductDetails}
+          />
         ))}
       </div>
+      <ProductDetailsDialog
+        open={openDetailsDialog}
+        setOpen={setOpenDetailsDialog}
+        productDetails={productDetails}
+      />
     </div>
   );
 }

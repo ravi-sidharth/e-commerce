@@ -1,8 +1,10 @@
 import {
   HousePlug,
   LogOut,
+  LucideShoppingCart,
   Menu,
   ShoppingCart,
+  ShoppingCartIcon,
   SofaIcon,
   UserCog,
 } from "lucide-react";
@@ -41,7 +43,9 @@ function MenuItems() {
     sessionStorage.removeItem("filters");
 
     const currentFilter =
-      getCurrentMenuItem.id !== "home" && getCurrentMenuItem.id !== "products" && getCurrentMenuItem.id !== "search"
+      getCurrentMenuItem.id !== "home" &&
+      getCurrentMenuItem.id !== "products" &&
+      getCurrentMenuItem.id !== "search"
         ? {
             category: [getCurrentMenuItem.id],
           }
@@ -49,7 +53,7 @@ function MenuItems() {
 
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
 
-    console.log(searchParams,"search Params")
+    console.log(searchParams, "search Params");
     location.pathname.includes("listing") && currentFilter !== null
       ? setSearchParams(
           new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
@@ -96,14 +100,14 @@ function HeaderRightContent() {
         open={openCartSheet}
         onOpenChange={() => setOpenCartSheet(!openCartSheet)}
       >
-        <Button
-          onClick={() => setOpenCartSheet(true)}
-          variant="outline"
-          size="icon"
-        >
-          <ShoppingCart className="h-6 w-6" />
+        <div onClick={() => setOpenCartSheet(true)} className="relative">
+          <ShoppingCart className="relative" />
+          <span className="absolute top-[-11px] right-[-4px] font-bold text-sm">
+            {cartItems?.items?.length || 0}
+          </span>
           <span className="sr-only">User cart</span>
-        </Button>
+        </div>
+
         <UserCartWrapper
           setOpenCartSheet={setOpenCartSheet}
           cartItems={
