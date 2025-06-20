@@ -23,7 +23,6 @@ function ShoppingOrders() {
 
   function hanldeFetchOrderDetails(getCurrentOrderId) {
     dispatch(getOrdersDetail(getCurrentOrderId)).then(data=> {
-      console.log(data,"order details")
       if (data?.payload?.success) {
       }
     })
@@ -32,15 +31,12 @@ function ShoppingOrders() {
 
   useEffect(() => {
     dispatch(getAllOrdersByUser(user?.id)).then((data) => {
-      console.log(data, "order list");
     });
   }, [dispatch]);
 
   useEffect(()=> {
     if(orderDetails !== null ) setOpenDetailsDialog(true)
   },[orderDetails])
-
-  console.log(orderList, "order Details");
 
   return (
     <Card className="border-none">

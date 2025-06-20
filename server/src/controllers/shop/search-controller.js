@@ -4,7 +4,6 @@ const Product = require('../../models/Product')
 const searchProduct = async(req,res) => {
     try {
         const {keyword} = req.params 
-        console.log(keyword,"keyword")
         if (!keyword || typeof keyword !== 'string') {
             return res.status(400).json({
                 success:false,
@@ -23,9 +22,7 @@ const searchProduct = async(req,res) => {
             ]
         }
 
-        console.log(createSearchQuery,"createSearch Query")
         const searchResults = await Product.find(createSearchQuery)
-        console.log(searchResults,"searchresults")
 
         res.status(200).json({
             success:true,

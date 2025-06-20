@@ -48,7 +48,6 @@ function Address({setCurrentSelectedAddress,selectedId}) {
         })
       : dispatch(addNewAddress({ ...formData, userId: user?.id })).then(
           (data) => {
-            console.log(data, "Data");
             if (data?.payload?.success) {
               toast.success("Address added successfully!");
               dispatch(fetchAllAddresses(user?.id));

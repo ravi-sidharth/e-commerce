@@ -3,8 +3,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FileIcon, UploadCloudIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
+import axiosInstance from "@/utils/axiosInstance";
 
 function ProductImageUpload({
   imageFile,
@@ -13,11 +13,11 @@ function ProductImageUpload({
   setUploadedImageUrl,
   setImageLoadingState,
   imageLoadingState,
+  isCustomStyle = false
 }) {
   const inputRef = useRef(null);
 
   function handleImageFileChange(event) {
-    console.log(event.target.files, "file");
     const selectedFile = event.target.files?.[0];
     if (selectedFile) setImageFile(selectedFile);
   }
@@ -43,11 +43,10 @@ function ProductImageUpload({
     setImageLoadingState(true);
     const data = new FormData();
     data.append("my_file", imageFile);
-    const response = await axios.post(
-      "http://localhost:3000/api/admin/products/upload-image",
+    const response = await axiosInstance.post(
+      "/admin/products/upload-image",
       data
     );
-    console.log(response?.data?.result.url, "url");
     if (response?.data?.success) {
       setUploadedImageUrl(response?.data?.result?.url);
     }
@@ -59,7 +58,7 @@ function ProductImageUpload({
   }, [imageFile]);
 
   return (
-    <div className="w-full max-w-md mx-auto px-6">
+    <div className={`w-full px-6 ${isCustomStyle? '' :'max-w-md mx-auto'}`}>
       <Label className="text-lg font-semibold mb-2 block">Upload Image</Label>
       <div
         onDragOver={handleDragOver}

@@ -31,8 +31,6 @@ function createSearchParamsHelper(filterParams) {
       queryParams.push(`${key}=${encodeURIComponent(paramsValue)}`);
     }
   }
-  console.log(queryParams, "query Params");
-
   return queryParams.join("&");
 }
 
@@ -80,8 +78,6 @@ function ShoppingListing() {
   }
 
   function handleAddToCart(getCurrentProductId, getTotalStock) {
-    console.log(cartItems, "cartItems");
-
     let getCartItems = cartItems.items || [];
 
     if (getCartItems.length) {
@@ -104,7 +100,6 @@ function ShoppingListing() {
         quantity: 1,
       })
     ).then((data) => {
-      console.log(data, "addToCart Data");
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
         toast.success("Product is added to cart");
@@ -135,7 +130,6 @@ function ShoppingListing() {
     if (productDetails !== null) setOpenDetailsDialog(true);
   }, [productDetails]);
 
-  console.log(products, "products");
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-5 p-4 md:p-6">
       <ProductFilter filters={filters} handleFilter={handleFilter} />

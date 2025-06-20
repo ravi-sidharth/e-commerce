@@ -1,5 +1,5 @@
+import axiosInstance from "@/utils/axiosInstance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
     isLoading: true,
@@ -9,8 +9,8 @@ const initialState = {
 export const addNewProduct = createAsyncThunk(
     '/products/addnewproduct',
     async (formData) => {
-        const response = await axios.post(
-            'http://localhost:3000/api/admin/products/add',
+        const response = await axiosInstance.post(
+            '/admin/products/add',
             formData, {
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const addNewProduct = createAsyncThunk(
 export const fetchAllProducts = createAsyncThunk(
     '/products/fetchallproducts',
     async () => {
-        const response = await axios.get('http://localhost:3000/api/admin/products/get',)
+        const response = await axiosInstance.get('/admin/products/get',)
         return response?.data
     }
 )
@@ -32,10 +32,8 @@ export const fetchAllProducts = createAsyncThunk(
 export const editProduct = createAsyncThunk(
     '/products/editproduct',
     async ({ id, formData }) => {
-        console.log(id, formData, "edit data")
-
-        const response = await axios.put(
-            `http://localhost:3000/api/admin/products/edit/${id}`,
+        const response = await axiosInstance.put(
+            `/admin/products/edit/${id}`,
             formData, {
             headers: {
                 'Content-Type': 'application/json'
@@ -49,8 +47,8 @@ export const editProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
     '/products/deleteproduct',
     async (id) => {
-        const response = await axios.delete(
-            `http://localhost:3000/api/admin/products/delete/${id}`,
+        const response = await axiosInstance.delete(
+            `/admin/products/delete/${id}`,
             {
                 headers: {
                     'Content-Type': 'application/json'

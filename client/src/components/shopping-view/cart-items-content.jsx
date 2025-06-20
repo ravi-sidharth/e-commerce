@@ -23,8 +23,6 @@ function UserCartItemsContent({ cartItem }) {
   }
 
   function handleUpdateQuantity(getCartItem, typeOfAction) {
-    console.log(getCartItem, "getCartITme");
-
     if (typeOfAction === "plus") {
       let getCartItems = cartItems.items || [];
 

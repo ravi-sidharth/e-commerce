@@ -5,10 +5,8 @@ const getFilteredProducts = async(req,res) => {
     try {
 
         const {category=[], brand =[], sortBy="price-hightolow"} = req.query;
-
-        console.log(category,brand,sortBy)
         const filters = {};
-
+        
         if (category.length) {
             filters.category ={$in: category.split(',') }
         }

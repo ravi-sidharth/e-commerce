@@ -20,12 +20,10 @@ const createOrder = async (req, res) => {
       orderUpdateDate,
     } = req.body;
 
-    const returnUrl = process.env.RETURN_URL;
-    const cancelUrl = process.env.CANCEL_URL;
+    const returnUrl = `${process.env.CLIENT_URL}/shop/paypal-return`
+    const cancelUrl =  `${process.env.CLIENT_URL}/shop.paypal-cancel`
 
     const paypalOrder = await paypal.createOrder(cartItems, totalAmount, returnUrl, cancelUrl);
-    console.log("PayPal Order ID:", paypalOrder.id)
-
     const approvalURL = paypalOrder.links.find(link => link.rel === 'approve').href;
 
     const newlyCreatedOrder = new Order({
@@ -42,8 +40,6 @@ const createOrder = async (req, res) => {
       paypalOrderId: paypalOrder.id,
     });
     await newlyCreatedOrder.save();
-
-    console.log(newlyCreatedOrder,"newlycreatedorder")
 
     res.status(201).json({
       success: true,

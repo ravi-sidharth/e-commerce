@@ -57,8 +57,6 @@ const updateOrderStatus = async(req,res) => {
     const {id} = req.params
     const {orderStatus} = req.body
   
-    console.log(req.body,"order staus")
-
     const order = await Order.findById(id)
     if(!order) {
       return res.staus(400).json({
@@ -67,8 +65,7 @@ const updateOrderStatus = async(req,res) => {
       })
     }
 
-    const orders = await Order.findByIdAndUpdate(id,{orderStatus})
-    console.log(orders,"orders")
+    await Order.findByIdAndUpdate(id,{orderStatus})
 
     res.status(200).json({
       success:true,

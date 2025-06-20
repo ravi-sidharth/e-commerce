@@ -27,8 +27,8 @@ import ShoppingProductTile from "@/components/shopping-view/product-tile";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
-// import { toast } from "sonner"; 
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
+import { getFeatureImage } from "@/store/common-slice";
 
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
@@ -48,11 +48,11 @@ const brandsWithIcon = [
 ];
 
 function ShoppingHome() {
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading,user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products , productDetails} = useSelector((state) => state.shopProducts);
-  const {user} = useSelector(state=> state.auth)
+  const {featureImageList} = useSelector(state=> state.commonFeature)
   const [currentSlide, setCurrentSlide] = useState(0);
   const [openDetailsDialog,setOpenDetailsDialog] = useState(false)
 
@@ -65,14 +65,11 @@ function ShoppingHome() {
       [section]: [getCurrentItem.id],
     };
 
-    
-
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
     navigate("/shop/listing");
   } 
 
   function handleAddToCart(getCurrentProductId) {
-    console.log(getCurrentProductId, "getCurrentProductId");
     dispatch(
       addToCart({
         userId: user?.id,
@@ -80,7 +77,6 @@ function ShoppingHome() {
         quantity: 1,
       })
     ).then((data) => {
-      console.log(data, "addToCart Data");
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
         toast.success('Product is added to cart')
@@ -95,7 +91,7 @@ function ShoppingHome() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(timer);
   }, []);
@@ -107,13 +103,16 @@ function ShoppingHome() {
         sortParams: "price-lowtohigh",
       })
     );
-    console.log(products, "products");
   }, [dispatch]);
 
   useEffect(() => {
     if (productDetails !== null) setOpenDetailsDialog(true);
   }, [productDetails]);
 
+
+  useEffect(()=> {
+    dispatch(getFeatureImage())
+  },[dispatch])
 
   if (isLoading) {
     return (
@@ -127,16 +126,16 @@ function ShoppingHome() {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="relative w-full h-[600px] overflow-hidden">
-        {slides.map((slide, index) => (
+        {featureImageList && featureImageList.length > 0 ? featureImageList.map((slide, index) => (
           <img
-            src={slide}
+            src={slide.image}
             key={index}
             alt="banner"
             className={`${
               index === currentSlide ? "opacity-100" : "opacity-0"
             } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
           />
-        ))}
+        )) : null }
         <Button
           className="absolute top-1/2 left-4 transform -traslate-y-1/2 bg-white/80 "
           variant="outline"

@@ -4,7 +4,6 @@ import { Button } from "../ui/button"
 
 
 function AddressCart({addressInfo, handleDeleteAddress, handleEditedAddress, setCurrentSelectedAddress,selectedId}) {
-    console.log(selectedId,"selectedId")
     return (
         <Card onClick={()=>setCurrentSelectedAddress(addressInfo)} className={`cursor-pointer ${selectedId?._id === addressInfo?._id ? 'border-blue-900 border-4':' border-black'}` }>
             <CardContent className={`grid gap-4 ${selectedId === addressInfo?._id ?'border-black':''}`}>

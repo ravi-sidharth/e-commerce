@@ -44,7 +44,6 @@ function AdminProducts() {
   const onSubmit = (event) => {
     event.preventDefault();
     if (currentEditedId) {
-      console.log(currentEditedId, "currentEdited Id");
       dispatch(
         editProduct({
           id: currentEditedId,
@@ -54,7 +53,6 @@ function AdminProducts() {
           },
         })
       ).then((data) => {
-        console.log(data, "product");
         if (data?.payload?.success) {
           dispatch(fetchAllProducts());
           setImageFile(null);
@@ -73,7 +71,6 @@ function AdminProducts() {
           image: uploadedImageUrl,
         })
       ).then((data) => {
-        console.log(data, "product");
         if (data?.payload?.success) {
           dispatch(fetchAllProducts());
           setImageFile(null);
@@ -89,10 +86,7 @@ function AdminProducts() {
   };
 
   function handleDelete(getProductId) {
-    console.log(getProductId,"productId")
-
     dispatch(deleteProduct(getProductId)).then((data)=>{
-      console.log(data,"deleted product")
       if (data?.payload?.success) {
         dispatch(fetchAllProducts())
         toast.success('Successfully deleted the product!')
@@ -100,7 +94,6 @@ function AdminProducts() {
     })
   }
 
-  console.log(formData, "FormData");
 
   function isFormValid() {
     return Object.keys(formData)
@@ -108,9 +101,8 @@ function AdminProducts() {
       .every(item => item);
   }
   const valid = isFormValid()
-  console.log(valid,"isFOrmValid")
 
-  useEffect(() => {isFormValid
+  useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
 
@@ -162,6 +154,7 @@ function AdminProducts() {
             setUploadedImageUrl={setUploadedImageUrl}
             setImageLoadingState={setImageLoadingState}
             imageLoadingState={imageLoadingState}
+            isEditMode = {currentEditedId !== null}
           />
           <div className="px-6 mb-5">
             <CommonForm

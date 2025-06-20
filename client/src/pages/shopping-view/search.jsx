@@ -36,7 +36,6 @@ function SearchProducts() {
   }, [keyword]);
 
   function handleAddToCart(getCurrentProductId, getTotalStock) {
-    console.log(cartItems, "cartItems");
 
     let getCartItems = cartItems.items || [];
 
@@ -62,7 +61,6 @@ function SearchProducts() {
         quantity: 1,
       })
     ).then((data) => {
-      console.log(data, "addToCart Data");
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
         toast.success("Product is added to cart");

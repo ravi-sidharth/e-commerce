@@ -12,17 +12,13 @@ function PaypalReturnPage() {
     const params = new URLSearchParams(loacation.search)
     const paymentId = params.get('token')
     const payerId = params.get('PayerID')
-    console.log(paymentId,"paymentdI")
-    console.log(payerId,"paymentdI")
 
     useEffect(()=> {
         if(paymentId && payerId) {
             const orderId = JSON.parse(sessionStorage.getItem('currentCartId'))
-            console.log(orderId,"orderId")
 
             dispatch(capturePayment({paymentId,payerId,orderId})).then(data=> {
                 if(data?.payload?.success) {
-                    console.log(data,"data")
                     sessionStorage.removeItem('getCurrentOrderId')
                     window.location.href = '/shop/payment-success '
                 }

@@ -8,15 +8,11 @@ const ProductReview = require('../../models/Review')
 const addProductReview = async (req, res) => {
     try {
         const {productId, userId, userName, reviewMessage, reviewValue} = req.body
-
-        console.log(req.body,"req body")
         const order = await Order.findOne({
             userId,
             'cartItems.productId': productId,
             orderStatus: 'Confirmed'
         })
-
-        console.log(order,"order")
 
         if (!order) {
             return res.status(403).json({

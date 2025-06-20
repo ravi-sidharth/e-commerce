@@ -10,7 +10,6 @@ function AdminHeader({setOpen}) {
   function handleLogout() {
     dispatch(logoutUser())
     .then(data => {
-      console.log(data,"data")
       if (data?.payload?.success) {
         toast.success('User logged out successfully!')
       }

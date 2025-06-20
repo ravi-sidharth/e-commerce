@@ -53,7 +53,6 @@ function MenuItems() {
 
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
 
-    console.log(searchParams, "search Params");
     location.pathname.includes("listing") && currentFilter !== null
       ? setSearchParams(
           new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
@@ -150,8 +149,6 @@ function HeaderRightContent() {
 
 function ShoppingHeader() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  console.log(user, "userInfo");
-
   return (
     <header className="sticky top-0 z-40 w-full bg-white">
       <div className="flex h-16 justify-between items-center px-4 md:px-6">

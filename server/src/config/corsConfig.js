@@ -4,7 +4,7 @@ const corsConfig = () => {
   return cors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        "http://localhost:5173", 
+        process.env.CLIENT_URL, 
       ];
 
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {

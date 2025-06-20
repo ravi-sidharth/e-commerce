@@ -1,5 +1,5 @@
+import axiosInstance from "@/utils/axiosInstance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
     approvalURL:null ,
@@ -10,24 +10,22 @@ const initialState = {
 }
 
 export const createNewOrder = createAsyncThunk('/order/createNewOrder',async(orderData)=> {
-    const response = await axios.post('http://localhost:3000/api/shop/order/create',orderData)
+    const response = await axiosInstance.post('/shop/order/create',orderData)
     return response.data
-
 })
 
 export const capturePayment = createAsyncThunk('/order/captureOrder',async({paymentId,payerId,orderId})=> {
-    const response = await axios.post('http://localhost:3000/api/shop/order/capture',{paymentId,payerId,orderId})
+    const response = await axiosInstance.post('/shop/order/capture',{paymentId,payerId,orderId})
     return response.data
-
 })
 
 export const getAllOrdersByUser = createAsyncThunk('/order/getAllOrderByUserId',async(userId)=> {
-    const response = await axios.get(`http://localhost:3000/api/shop/order/list/${userId}`)
+    const response = await axiosInstance.get(`/shop/order/list/${userId}`)
     return response.data
 })
 
 export const getOrdersDetail = createAsyncThunk('/order/getOrderDetails',async(id)=> {
-    const response = await axios.get(`http://localhost:3000/api/shop/order/details/${id}`)
+    const response = await axiosInstance.get(`/shop/order/details/${id}`)
     return response.data
 })
 

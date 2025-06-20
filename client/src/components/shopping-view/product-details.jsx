@@ -58,7 +58,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         quantity: 1,
       })
     ).then((data) => {
-      console.log(data, "addToCart Data");
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
         toast.success("Product is added to cart");
@@ -95,7 +94,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
   useEffect(() => {
     if (productDetails !== null)
       dispatch(getProductReview(productDetails?._id));
-    console.log(reviews, "reviews");
   }, [productDetails]);
 
   const averageReview = reviews && reviews.length >0 ? reviews.reduce((sum, reviewItem) => sum + reviewItem.reviewValue, 0) / reviews.length : 0

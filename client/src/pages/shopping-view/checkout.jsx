@@ -15,7 +15,6 @@ function ShoppingCheckout() {
   const [currentSelectedAddress, setCurrentSelectedAddress] = useState(null);
   const [isPaymentStart, setIsPaymentStart] = useState(false);
 
-  console.log(currentSelectedAddress, "current selected address");
   const totalCartAmount =
     cartItems && cartItems.items && cartItems.items.length > 0
       ? cartItems.items.reduce(
@@ -66,8 +65,6 @@ function ShoppingCheckout() {
       paymentId: "",
       payerId: "",
     };
-
-    console.log(orderData, "order Data");
 
     dispatch(createNewOrder(orderData)).then((data) => {
       if (data?.payload?.success) {
