@@ -9,7 +9,7 @@ const initialState = {
 
 
 export const getSearchResults = createAsyncThunk('/shop/search',async(keyword)=> {
-    const response = await axiosInstance.get(`/shop/search/${keyword}`)
+    const response = await axiosInstance.get(`/api/shop/search/${keyword}`)
     return response.data
 })
 const shopSearchSlice = createSlice({

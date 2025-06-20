@@ -7,12 +7,12 @@ const initialState = {
 }
 
 export const addFeatureImages = createAsyncThunk('uploadFeature-images',async(image) => {
-    const response = await axiosInstance.post('/common/feature/add',{image})
+    const response = await axiosInstance.post('/api/common/feature/add',{image})
     return response.data
 })
 
 export const getFeatureImage = createAsyncThunk('getFeature-images',async() => {
-    const response =await axiosInstance.get('/common/feature/get')
+    const response =await axiosInstance.get('/api/common/feature/get')
     return response.data
 })
 

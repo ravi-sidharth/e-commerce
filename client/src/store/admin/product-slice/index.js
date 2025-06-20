@@ -10,7 +10,7 @@ export const addNewProduct = createAsyncThunk(
     '/products/addnewproduct',
     async (formData) => {
         const response = await axiosInstance.post(
-            '/admin/products/add',
+            '/api/admin/products/add',
             formData, {
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const addNewProduct = createAsyncThunk(
 export const fetchAllProducts = createAsyncThunk(
     '/products/fetchallproducts',
     async () => {
-        const response = await axiosInstance.get('/admin/products/get',)
+        const response = await axiosInstance.get('/api/admin/products/get',)
         return response?.data
     }
 )
@@ -33,7 +33,7 @@ export const editProduct = createAsyncThunk(
     '/products/editproduct',
     async ({ id, formData }) => {
         const response = await axiosInstance.put(
-            `/admin/products/edit/${id}`,
+            `/api/admin/products/edit/${id}`,
             formData, {
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export const deleteProduct = createAsyncThunk(
     '/products/deleteproduct',
     async (id) => {
         const response = await axiosInstance.delete(
-            `/admin/products/delete/${id}`,
+            `/api/admin/products/delete/${id}`,
             {
                 headers: {
                     'Content-Type': 'application/json'

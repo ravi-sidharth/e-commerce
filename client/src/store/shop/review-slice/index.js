@@ -7,12 +7,12 @@ const initialState = {
 }
 
 export const addProductReview = createAsyncThunk('addProductReview',async({productId, userId, userName, reviewMessage, reviewValue })=> {
-    const response = await axiosInstance.post('/shop/review/add',{productId, userId, userName, reviewMessage, reviewValue })
+    const response = await axiosInstance.post('/api/shop/review/add',{productId, userId, userName, reviewMessage, reviewValue })
     return response.data
 })
 
 export const getProductReview = createAsyncThunk('getProductReview',async(productId)=> {
-    const response = await axiosInstance.get(`/shop/review/${productId}`)
+    const response = await axiosInstance.get(`/api/shop/review/${productId}`)
     return response.data
 })
 

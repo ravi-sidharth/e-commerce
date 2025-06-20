@@ -1,6 +1,5 @@
 import axiosInstance from "@/utils/axiosInstance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
     isAuthenticated: false,
@@ -11,7 +10,7 @@ const initialState = {
 export const registerUser = createAsyncThunk('/auth/register',
     async (formData) => {
         const response = await axiosInstance.post(
-            '/auth/register',
+            '/api/auth/register',
             formData,
             {
                 withCredentials: true
@@ -23,18 +22,16 @@ export const registerUser = createAsyncThunk('/auth/register',
 
 export const loginUser = createAsyncThunk('/auth/login',
     async (formData) => {
-        const response = await axiosInstance.post('/auth/login', formData, {
+        const response = await axiosInstance.post('/api/auth/login', formData, {
             withCredentials: true
         })
-
         return response.data
-
     }
 )
 
 export const logoutUser = createAsyncThunk('/auth/logout',
     async () => {
-        const response = await axiosInstance.post('/auth/logout', {}, {
+        const response = await axiosInstance.post('/api/auth/logout', {}, {
             withCredentials: true
         })
 
@@ -45,16 +42,14 @@ export const logoutUser = createAsyncThunk('/auth/logout',
 
 export const checkAuth = createAsyncThunk('/auth/checkauth',
     async () => {
-        const response = await axiosInstance.get('/auth/check-auth', {
+        const response = await axiosInstance.get('/api/auth/check-auth', {
             withCredentials: true,
             headers: {
                 "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
             }
         },
         )
-
         return response.data
-
     }
 )
 
