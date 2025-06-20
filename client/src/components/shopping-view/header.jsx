@@ -27,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { logoutUser } from "@/store/auth-slice";
+import { logoutUser, resetTokenAndCredentials } from "@/store/auth-slice";
 import { toast } from "sonner";
 import UserCartWrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
@@ -83,11 +83,14 @@ function HeaderRightContent() {
   const dispatch = useDispatch();
 
   function handleLogout() {
-    dispatch(logoutUser()).then((data) => {
-      if (data?.payload?.success) {
-        toast.info(data?.payload?.message);
-      }
-    });
+    // dispatch(logoutUser()).then((data) => {
+    //   if (data?.payload?.success) {
+    //     toast.info(data?.payload?.message);
+    //   }
+    // });
+    dispatch(resetTokenAndCredentials())
+    sessionStorage.clear()
+    navigate('/auth/login')
   }
 
   useEffect(() => {

@@ -9,12 +9,12 @@ const userRegister = async (req, res) => {
 
         if (!userName || !email || !password) {
             return res.json({
-              success: false,
-              message: 'All fields are required'
+                success: false,
+                message: 'All fields are required'
             });
-          }
-          
-        const user = await User.findOne({email})
+        }
+
+        const user = await User.findOne({ email })
         if (user) {
             logger.warn('User is already exist with the same email! Please try again.')
             return res.json({
@@ -52,11 +52,11 @@ const userLogin = async (req, res) => {
 
         if (!email || !password) {
             return res.json({
-              success: false,
-              message: 'Email and password are required'
+                success: false,
+                message: 'Email and password are required'
             });
-          }
-          
+        }
+
 
         const user = await User.findOne({ email })
         if (!user) {
@@ -77,24 +77,37 @@ const userLogin = async (req, res) => {
             })
         }
 
-        const  payload = {
+        const payload = {
             id: user._id,
-            userName : user.userName ,
-            email:user.email,
-            role:user.role
+            userName: user.userName,
+            email: user.email,
+            role: user.role
         }
-        const token = jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'60m'})
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '60m' })
 
         logger.info('User logged in successfully!')
-        res.cookie('token',token ,{httpOnly:true, secure:true}).status(200).json({
+        // res.cookie('token',token ,{httpOnly:true, secure:true}).status(200).json({
+        //     success: true,
+        //     message: 'User logged in successfully!',
+        //     user : {
+        //         id:user._id,
+        //         userName:user.userName,
+        //         email:user.email,
+        //         role:user.role
+        //     }
+        // })
+
+        res.status(200).json({
             success: true,
-            message: 'User logged in successfully!',
-            user : {
-                id:user._id,
-                userName:user.userName,
-                email:user.email,
-                role:user.role
+            message: 'Logged in successfully',
+            token,
+            user: {
+                id: user._id,
+                userName: user.userName,
+                email: user.email,
+                role: user.role
             }
+
         })
 
     } catch (err) {
@@ -108,36 +121,61 @@ const userLogin = async (req, res) => {
 
 // logout 
 
-const userLogout = async(req,res) => {
+const userLogout = async (req, res) => {
     res.clearCookie('token').json({
-        success:true,
-        message:'Logged out successfully!'
+        success: true,
+        message: 'Logged out successfully!'
     })
 }
 
 // auth middleware 
 
-const authMiddleware = async(req,res,next) => {
-    const token = req.cookies.token
+// const authMiddleware = async (req, res, next) => {
+//     const token = req.cookies.token
+//     if (!token) {
+//         logger.warn('You are not login, Please login to continue!')
+//         return res.status(401).json({
+//             success: false,
+//             message: 'Unauthorised user!'
+//         })
+//     }
+
+//     try {
+//         const decoded = jwt.verify(token, process.env.JWT_SECRET)
+//         req.user = decoded
+//         next()
+//     } catch (err) {
+//         return res.status(500).json({
+//             success: false,
+//             message: err?.message
+//         })
+//     }
+// }
+
+
+const authMiddleware = async (req, res, next) => {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
     if (!token) {
         logger.warn('You are not login, Please login to continue!')
         return res.status(401).json({
-            success:false,
-            message:'Unauthorised user!'
+            success: false,
+            message: 'Unauthorised user!'
         })
     }
 
     try {
-        const decoded = jwt.verify(token,process.env.JWT_SECRET)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
         req.user = decoded
         next()
-    }  catch(err) {
+    } catch (err) {
         return res.status(500).json({
-            success:false,
-            message:err?.message
+            success: false,
+            message: err?.message
         })
     }
 }
+
 
 module.exports = {
     userRegister,

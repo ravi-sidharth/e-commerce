@@ -3,17 +3,23 @@ import { Button } from "../ui/button";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "@/store/auth-slice";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 function AdminHeader({setOpen}) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   function handleLogout() {
-    dispatch(logoutUser())
-    .then(data => {
-      if (data?.payload?.success) {
-        toast.success('User logged out successfully!')
-      }
-    })  
+    // dispatch(logoutUser())
+    // .then(data => {
+    //   if (data?.payload?.success) {
+    //     toast.success('User logged out successfully!')
+    //   }
+    // })  
+
+    dispatch(resetTokenAndCredentials())
+    sessionStorage.clear()
+    navigate('/auth/login')
   }
   return (
     <header className="flex justify-between items-center px-4 py-3">
