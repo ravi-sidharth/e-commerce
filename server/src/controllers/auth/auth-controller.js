@@ -86,7 +86,7 @@ const userLogin = async (req, res) => {
         const token = jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'60m'})
 
         logger.info('User logged in successfully!')
-        res.cookie('token',token ,{httpOnly:true, secure:false}).status(200).json({
+        res.cookie('token',token ,{httpOnly:true, secure:true}).status(200).json({
             success: true,
             message: 'User logged in successfully!',
             user : {
@@ -115,7 +115,7 @@ const userLogout = async(req,res) => {
     })
 }
 
-// auth middleware \
+// auth middleware 
 
 const authMiddleware = async(req,res,next) => {
     const token = req.cookies.token
