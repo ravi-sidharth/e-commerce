@@ -6,14 +6,16 @@ import {
   BabyIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  CloudLightning,
   Shirt,
   ShirtIcon,
   ShoppingBasket,
   UmbrellaIcon,
+  User,
   WashingMachine,
   WatchIcon,
 } from "lucide-react";
+import { FaFemale,FaShoppingBag,FaShoePrints } from 'react-icons/fa';
+import { SiNike,SiAdidas,SiPuma, SiAcm, SiLemmy, Si1Dot1Dot1Dot1, SiZara, SiLevelsdotfyi, SiUnilever } from 'react-icons/si';
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -28,20 +30,20 @@ import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import { getFeatureImage } from "@/store/common-slice";
 
 const categoriesWithIcon = [
-  { id: "men", label: "Men", icon: ShirtIcon },
-  { id: "women", label: "Women", icon: CloudLightning },
-  { id: "kids", label: "Kids", icon: BabyIcon },
-  { id: "accessories", label: "Accessories", icon: WatchIcon },
-  { id: "footweer", label: "Footweer", icon: UmbrellaIcon },
+  { id: "men", label: "Men", icon: User },
+  { id: "women", label: "Women", icon: FaFemale },
+  { id: "kids", label: "Kids", icon: BabyIcon, },
+  { id: "accessories", label: "Accessories", icon: FaShoppingBag },
+  { id: "footweer", label: "Footweer", icon: FaShoePrints },
 ];
 
 const brandsWithIcon = [
-  { id: "puma", label: "Puma", icon: WashingMachine },
-  { id: "nike", label: "Nike", icon: Shirt },
-  { id: "addidas", label: "Addidas", icon: ShoppingBasket },
-  { id: "h&m", label: "H&M", icon: ShirtIcon },
-  { id: "levi", label: "Levi", icon: Airplay },
-  { id: "zara", label: "Zara", icon: Airplay },
+  { id: "puma", label: "Puma", icon: SiPuma },
+  { id: "nike", label: "Nike", icon: SiNike },
+  { id: "addidas", label: "Addidas", icon: SiAdidas },
+  { id: "h&m", label: "H&M", icon: SiAcm },
+  { id: "levi", label: "Levi", icon: SiUnilever },
+  { id: "zara", label: "Zara", icon: SiZara },
 ];
 
 function ShoppingHome() {

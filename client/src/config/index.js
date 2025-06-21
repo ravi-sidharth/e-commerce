@@ -164,6 +164,7 @@ export const filterOptions = {
         {id:'addidas', label:'Addidas'},
         {id:'h&m', label:'H&M'},
         {id:'levi', label:'Levi'},
+        {id:'zara', label:'Zara'},
     ]
 }
 

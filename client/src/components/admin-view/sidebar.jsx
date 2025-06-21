@@ -49,7 +49,7 @@ const MenuItems = ({setOpen}) => {
               navigate(menuItem.path)
               setOpen ? setOpen(false) : null
             }} 
-            className={`flex items-center gap-2 rounded-md px-3 py-2 text-xl cursor-pointer ${isActive ? 'bg-gray-300' :''}`}
+            className={`flex items-center gap-2 rounded-md px-3 py-2 text-xl hover:bg-gray-300 cursor-pointer ${isActive ? 'bg-gray-300' :''}`}
           >
             {menuItem.icon}
             <span>{menuItem.label}</span>
