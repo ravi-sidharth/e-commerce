@@ -4,7 +4,7 @@ import {
   LayoutDashboard,
   ShoppingBasket,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Sheet,
   SheetContent,
@@ -37,28 +37,31 @@ const adminSidebarMenuItems = [
 
 const MenuItems = ({setOpen}) => {
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <nav className="mt-8 flex flex-col gap-2">
-      {adminSidebarMenuItems.map((menuItem) => (
-        <div
-          key={menuItem.id}
-          onClick={() => {
-            navigate(menuItem.path)
-            setOpen ? setOpen(false) : null
-          }} 
-          className="flex items-center gap-2 rounded-md px-3 py-2 text-xl hover:text-gray-400 cursor-pointer "
-        >
-          {menuItem.icon}
-          <span>{menuItem.label}</span>
-        </div>
-      ))}
+      {adminSidebarMenuItems.map((menuItem) => {
+        const isActive = location.pathname === menuItem.path
+        return (
+          <div
+            key={menuItem.id}
+            onClick={() => {
+              navigate(menuItem.path)
+              setOpen ? setOpen(false) : null
+            }} 
+            className={`flex items-center gap-2 rounded-md px-3 py-2 text-xl cursor-pointer ${isActive ? 'bg-gray-300' :''}`}
+          >
+            {menuItem.icon}
+            <span>{menuItem.label}</span>
+          </div>
+        )
+      })}
     </nav>
   );
 };
 
 function AdminSideBar({ open, setOpen }) {
     const navigate = useNavigate();
-  
     return (
       <>
         <Sheet open={open} onOpenChange={()=>setOpen((prev)=>!prev)}>

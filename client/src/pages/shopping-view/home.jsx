@@ -1,8 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Skeleton } from "@/components/ui/skeleton";
-import bannerOne from "../../assets/banner-1.webp";
-import bannerTwo from "../../assets/banner-2.webp";
-import bannerThree from "../../assets/banner-3.webp";
 import { Button } from "@/components/ui/button";
 import {
   Airplay,
@@ -56,9 +53,6 @@ function ShoppingHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [openDetailsDialog,setOpenDetailsDialog] = useState(false)
 
-
-  const slides = [bannerOne, bannerTwo, bannerThree];
-
   function handleNavigateToListingPage(getCurrentItem, section) {
     sessionStorage.removeItem("filters");
     const currentFilter = {
@@ -79,7 +73,7 @@ function ShoppingHome() {
     ).then((data) => {
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
-        toast.success('Product is added to cart')
+        toast.success('Product is added to the cart')
 
       }
     });
@@ -88,13 +82,6 @@ function ShoppingHome() {
   function handleGetProductDetails(getCurrentProductId) {
     dispatch(fetchProductDetails(getCurrentProductId));
   }
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 3000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     dispatch(
@@ -114,6 +101,14 @@ function ShoppingHome() {
     dispatch(getFeatureImage())
   },[dispatch])
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % (featureImageList.length));
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   if (isLoading) {
     return (
       <div className="flex flex-col space-y-3">
@@ -122,6 +117,7 @@ function ShoppingHome() {
     );
   }
 
+  console.log(featureImageList,"feature image list")
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -142,7 +138,7 @@ function ShoppingHome() {
           size="icon"
           onClick={() =>
             setCurrentSlide(
-              (prevSlide) => (prevSlide - 1 + slides.length) % slides.length
+              (prevSlide) => (prevSlide - 1 + featureImageList.length) % featureImageList.length
             )
           }
         >
@@ -153,7 +149,7 @@ function ShoppingHome() {
           variant="outline"
           size="icon"
           onClick={() =>
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length)
+            setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length)
           }
         >
           <ChevronRightIcon className="w-4 h-4" />

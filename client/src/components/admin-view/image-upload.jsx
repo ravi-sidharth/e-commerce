@@ -54,8 +54,9 @@ function ProductImageUpload({
   };
 
   useEffect(() => {
-    if (imageFile !== null) uploadImageToCloudinary();
+    if (imageFile !== null ) uploadImageToCloudinary();      
   }, [imageFile]);
+
 
   return (
     <div className={`w-full px-6 ${isCustomStyle? '' :'max-w-md mx-auto'}`}>
@@ -81,7 +82,7 @@ function ProductImageUpload({
             <span>Drag & drop or click to upload image</span>
           </Label>
         ) : imageLoadingState ? (
-          <Skeleton className="h-10 bg-gray-100" />
+          <Skeleton className="h-10 bg-gray-100 transition-colors" />
         ) : (
           <div className="flex justify-between items-center ">
             <div className="flex items-center">

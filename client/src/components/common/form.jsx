@@ -83,7 +83,6 @@ function CommonForm({
             }
           />
         );
-
         break;
 
       default:

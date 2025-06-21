@@ -14,7 +14,7 @@ function AdminDashboard() {
   const handleUploadImageFeature = async() => {
     dispatch(addFeatureImages(uploadedImageUrl)).then(data=> {
       if (data?.payload?.success) {
-        setImageFile('')
+        setImageFile(null)
         setUploadedImageUrl('')
         dispatch(getFeatureImage())
       }
