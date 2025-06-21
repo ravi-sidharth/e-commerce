@@ -49,11 +49,11 @@ function ShoppingProductTile({
                 product?.salePrice > 0 ? "line-through" : ""
               }`}
             >
-              {product?.price}
+               ₹{product?.price}
             </span>
             {product?.salePrice > 0 ? (
               <span className="text-lg font-semibold">
-                {product?.salePrice}
+                 ₹{product?.salePrice}
               </span>
             ) : null }
           </div>

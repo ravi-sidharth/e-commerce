@@ -45,13 +45,15 @@ const brandsWithIcon = [
 ];
 
 function ShoppingHome() {
-  const { isLoading,user } = useSelector((state) => state.auth);
+  const { isLoading, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products , productDetails} = useSelector((state) => state.shopProducts);
-  const {featureImageList} = useSelector(state=> state.commonFeature)
+  const { products, productDetails } = useSelector(
+    (state) => state.shopProducts
+  );
+  const { featureImageList } = useSelector((state) => state.commonFeature);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [openDetailsDialog,setOpenDetailsDialog] = useState(false)
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
   function handleNavigateToListingPage(getCurrentItem, section) {
     sessionStorage.removeItem("filters");
@@ -61,7 +63,7 @@ function ShoppingHome() {
 
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
     navigate("/shop/listing");
-  } 
+  }
 
   function handleAddToCart(getCurrentProductId) {
     dispatch(
@@ -73,8 +75,7 @@ function ShoppingHome() {
     ).then((data) => {
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
-        toast.success('Product is added to the cart')
-
+        toast.success("Product is added to the cart");
       }
     });
   }
@@ -96,18 +97,19 @@ function ShoppingHome() {
     if (productDetails !== null) setOpenDetailsDialog(true);
   }, [productDetails]);
 
-
-  useEffect(()=> {
-    dispatch(getFeatureImage())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(getFeatureImage());
+  }, [dispatch]);
 
   useEffect(() => {
+    if (!featureImageList || featureImageList.length === 0) return;
     const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % (featureImageList.length));
+      console.log("hellow");
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
     }, 3000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [featureImageList]);
 
   if (isLoading) {
     return (
@@ -117,39 +119,43 @@ function ShoppingHome() {
     );
   }
 
-  console.log(featureImageList,"feature image list")
-
   return (
     <div className="flex flex-col min-h-screen">
       <div className="relative w-full h-[600px] overflow-hidden">
-        {featureImageList && featureImageList.length > 0 ? featureImageList.map((slide, index) => (
-          <img
-            src={slide.image}
-            key={index}
-            alt="banner"
-            className={`${
-              index === currentSlide ? "opacity-100" : "opacity-0"
-            } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
-          />
-        )) : null }
+        {featureImageList && featureImageList.length > 0
+          ? featureImageList.map((slide, index) => (
+              <img
+                src={slide.image}
+                key={index}
+                alt="banner"
+                className={`${
+                  index === currentSlide ? "opacity-100" : "opacity-0"
+                } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
+              />
+            ))
+          : null}
         <Button
-          className="absolute top-1/2 left-4 transform -traslate-y-1/2 bg-white/80 "
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80 "
           variant="outline"
           size="icon"
           onClick={() =>
             setCurrentSlide(
-              (prevSlide) => (prevSlide - 1 + featureImageList.length) % featureImageList.length
+              (prevSlide) =>
+                (prevSlide - 1 + featureImageList.length) %
+                featureImageList.length
             )
           }
         >
           <ChevronLeftIcon className="w-4 h-4" />
         </Button>
         <Button
-          className="absolute top-1/2 right-4 transform -traslate-y-1/2 bg-white/80 "
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80 "
           variant="outline"
           size="icon"
           onClick={() =>
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length)
+            setCurrentSlide(
+              (prevSlide) => (prevSlide + 1) % featureImageList.length
+            )
           }
         >
           <ChevronRightIcon className="w-4 h-4" />
@@ -163,6 +169,7 @@ function ShoppingHome() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {categoriesWithIcon.map((categoryItem) => (
               <Card
+                key={categoryItem.id}
                 onClick={() =>
                   handleNavigateToListingPage(categoryItem, "category")
                 }
@@ -186,6 +193,7 @@ function ShoppingHome() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {brandsWithIcon.map((brandItem) => (
               <Card
+                key={brandItem.id}
                 onClick={() => handleNavigateToListingPage(brandItem, "brand")}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
@@ -208,7 +216,7 @@ function ShoppingHome() {
           {products && products.length > 0
             ? products.map((productItem) => (
                 <ShoppingProductTile
-                handleGetProductDetails={handleGetProductDetails}
+                  handleGetProductDetails={handleGetProductDetails}
                   product={productItem}
                   handleAddToCart={handleAddToCart}
                 />

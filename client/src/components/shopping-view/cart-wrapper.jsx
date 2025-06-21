@@ -25,10 +25,10 @@ function UserCartWrapper({ cartItems, setOpenCartSheet }) {
             ? cartItems.map((item) => <UserCartItemsContent cartItem={item} />)
             : null}
         </div>
-        <div className="space-y-4">
+        <div className="mt-5">
           <div className="flex justify-between">
             <span className="font-bold">Total</span>
-            <span className="font-bold">${totalCartAmount}</span>
+            <span className="font-bold">₹{totalCartAmount}</span>
           </div>
         </div>
         <Button onClick={()=>{
