@@ -5,7 +5,7 @@ import { Button } from "../ui/button"
 
 function AddressCart({addressInfo, handleDeleteAddress, handleEditedAddress, setCurrentSelectedAddress,selectedId}) {
     return (
-        <Card onClick={()=>setCurrentSelectedAddress(addressInfo)} className={`cursor-pointer ${selectedId?._id === addressInfo?._id ? 'border-blue-900 border-4':' border-black'}` }>
+        <Card onClick={()=>setCurrentSelectedAddress(addressInfo)} className={`cursor-pointer ${selectedId?._id === addressInfo?._id ? 'border-grey-900 border-4':' border-black'}` }>
             <CardContent className={`grid gap-4 ${selectedId === addressInfo?._id ?'border-black':''}`}>
                 <Label><span className="font-bold">Address: </span> {addressInfo?.address}</Label>
                 <Label><span className="font-bold">City: </span>{addressInfo?.city}</Label>
@@ -15,7 +15,7 @@ function AddressCart({addressInfo, handleDeleteAddress, handleEditedAddress, set
             </CardContent>
             <CardFooter className=" flex justify-between ">
                 <Button onClick={()=>handleEditedAddress(addressInfo)} className="bg-gray-950 font-bold text-white">Edit</Button>
-                <Button onClick={()=>handleDeleteAddress(addressInfo)} className="bg-gray-950 font-bold text-white">Delete</Button>
+                <Button onClick={()=>handleDeleteAddress(addressInfo)} className="bg-red-500 font-bold text-white">Delete</Button>
             </CardFooter>
         </Card>
     )
