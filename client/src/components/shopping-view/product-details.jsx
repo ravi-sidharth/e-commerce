@@ -87,6 +87,9 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         setReviewMsg("")
         dispatch(getProductReview(productDetails?._id));
         toast.success("Review added successfully!");
+      } else {
+        console.log(data)
+        toast.error("You need to purchase product to review it.")
       }
     });
   }
