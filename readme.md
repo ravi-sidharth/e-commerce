@@ -143,3 +143,9 @@ mern-ecommerce/
 Released under the [MIT License](LICENSE).
 
 ---
+
+## 🙌 Loved building this? Let’s connect!
+
+If you encounter any bugs or have ideas for improvement, feel free to reach out or open an issue.
+
+---
