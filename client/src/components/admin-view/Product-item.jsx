@@ -35,9 +35,9 @@ function DeleteButton({ getProductId }) {
           <TrashIcon />
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-white">
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete and
             remove your data from our servers.
@@ -45,8 +45,8 @@ function DeleteButton({ getProductId }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteHandler(getProductId)}>
-            Continue
+          <AlertDialogAction className="bg-red-500" onClick={() => deleteHandler(getProductId)}>
+            Delete
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

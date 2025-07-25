@@ -40,7 +40,7 @@ function DeleteButton({ getSubCategoryId }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete and
             remove your data from our servers.
@@ -48,8 +48,8 @@ function DeleteButton({ getSubCategoryId }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteHandler(getSubCategoryId)}>
-            Continue
+          <AlertDialogAction className="bg-red-500" onClick={() => deleteHandler(getSubCategoryId)}>
+            Delete
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -212,7 +212,7 @@ const AdminProducts = () => {
             aria-describedby={undefined}
           >
             <SheetHeader>
-              <SheetTitle>
+              <SheetTitle className="text-2xl">
                 {editIdAndImages.id ? "Edit Product" : "Add New Product"}
               </SheetTitle>
             </SheetHeader>

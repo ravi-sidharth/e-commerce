@@ -137,13 +137,13 @@ const AdminSubCategory = () => {
         )}
 
         <Sheet open={openCreateSubCategory} onOpenChange={resetForm}>
-          <SheetContent side="right" className="overflow-auto">
+          <SheetContent side="right" className="overflow-auto bg-white px-2">
             <SheetHeader>
-              <SheetTitle>
+              <SheetTitle className="text-2xl">
                 {editValueId ? "Edit SubCategory" : "Add New SubCategory"}
               </SheetTitle>
             </SheetHeader>
-            <form onSubmit={handleSubmit} className="space-y-3 mt-5">
+            <form onSubmit={handleSubmit} className="space-y-3 ">
               <div className="space-y-2">
                 <Label htmlFor="category">Category</Label>
                 <Select
@@ -153,10 +153,10 @@ const AdminSubCategory = () => {
                   }
                   value={formData.category}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     {categoryList.map((item) => (
                       <SelectItem key={item._id} value={item._id}>
                         {item.name}
@@ -175,6 +175,7 @@ const AdminSubCategory = () => {
                   id="name"
                   name="name"
                   placeholder="Enter the name"
+                  className="border"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })

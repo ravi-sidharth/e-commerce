@@ -88,8 +88,8 @@ const ShoppingDetails = () => {
         onClick={() => navigate(-1)}
         className="mb-3 px-4 py-2 "
       >
-        <div className="flex justify-center items-center gap-2">
-        <MoveLeftIcon/> <span className="text-xl font-bold">Back</span>
+        <div className="flex justify-center items-center gap-2 hover:text-blue-400">
+        <MoveLeftIcon className=""/> <span className="text-xl font-bold"> Go Back</span>
         </div>
       </button>
       {productDetails?._id ? (

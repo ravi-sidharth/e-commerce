@@ -193,10 +193,10 @@ const HeaderRightContent = ({ setOpenNavbar }) => {
 const ShoppingHeader = () => {
   const [openNavbar, setOpenNavbar] = useState(false);
   return (
-    <header className="w-full bg-white">
+    <header className="w-full bg-white border-b-1">
       <div className="flex justify-between items-center h-16 px-4 md:px-8">
         <Link to={"/shop/home"} className="flex items-start gap-2">
-          <img src={ShopLogo} alt={"Shop-logo"} className="h-24 w-30" />
+          <img src={ShopLogo} alt={"Shop-logo"} className="h-16 w-30" />
         </Link>
         <Sheet open={openNavbar} onOpenChange={setOpenNavbar}>
           <SheetTrigger asChild>
