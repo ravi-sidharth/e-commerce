@@ -1,25 +1,37 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { addToCart, fetchCartItems } from "@/store/cart-slice/index";
-import { Heart, MoveLeftIcon, ShoppingCart } from "lucide-react";
+import {
+  ExternalLink,
+  Heart,
+  MoveLeftIcon,
+  Share2,
+  ShareIcon,
+  ShoppingCart,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { createWishlist,fetchAllWishlist } from "@/store/wishlist-slice";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { createWishlist, fetchAllWishlist } from "@/store/wishlist-slice";
 import Review from "@/components/shopping-view/review";
 import { fetchProductDetails } from "@/store/shopping-product-slice";
+import ShareModal from "@/components/common/ShareModal";
 
 const ShoppingDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation()
   const [size, setSize] = useState(null);
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { productDetails } = useSelector((state) => state.shoppingProduct);
   const { wishlistList } = useSelector((state) => state.shopWishlist);
   const { isLoading, cartItems } = useSelector((state) => state.shoppingCart);
+  const [showShareOptions,setShowShareOptions] = useState(false)
+
+  const shareUrl = `http://localhost:5173${location.pathname}`
 
   useEffect(() => {
     dispatch(fetchCartItems({ userId: user?.id }));
@@ -40,7 +52,9 @@ const ShoppingDetails = () => {
       if (indexofCurrentItem > -1) {
         const getquantity = getCartItems[indexofCurrentItem].quantity;
         if (getquantity + 1 > productDetails?.stock) {
-          toast.error(`Only ${productDetails?.stock} products can be added for this items.`);
+          toast.error(
+            `Only ${productDetails?.stock} products can be added for this items.`
+          );
           return;
         }
       }
@@ -81,18 +95,17 @@ const ShoppingDetails = () => {
 
   return (
     <>
-     <button
-        onClick={() => navigate(-1)}
-        className="mb-3 px-4 pt-2"
-      >
+      <button onClick={() => navigate(-1)} className="mb-3 px-4 pt-2">
         <div className="flex justify-center items-center gap-2 hover:text-blue-400">
-        <MoveLeftIcon className=""/> <span className="text-xl font-bold"> Go Back</span>
+          <MoveLeftIcon className="" />{" "}
+          <span className="text-xl font-bold"> Go Back</span>
         </div>
       </button>
+
       {productDetails?._id ? (
         <div className="px-2  w-full flex flex-col lg:flex-row justify-center">
           <div className="w-full">
-            <div className="grid grid-cols-2 gap-1 border ">
+            <div className="grid grid-cols-2 gap-1 ">
               {productDetails.images.map((item, index) => {
                 return (
                   <div
@@ -109,16 +122,38 @@ const ShoppingDetails = () => {
               })}
             </div>
           </div>
+
           <div className="w-full px-2 md:px-10 space-y-1">
-            <div className="text-sm underline font-medium text-blue-500">
-              {productDetails?.brand?.name}:{productDetails?.category?.name}-{productDetails?.subcategory?.name}
+            <div className="flex justify-between">
+              <div className="text-sm underline font-medium text-blue-500 ">
+                {productDetails?.brand?.name}:{productDetails?.category?.name}-
+                {productDetails?.subcategory?.name}
+              </div>
+              <div onClick={()=> setShowShareOptions(true)} className="p-2  mr-10 bg-gray-200 rounded-full hover:text-blue-500">
+                <Share2 />
+              </div>
             </div>
+            {showShareOptions && (
+              <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center">
+                <ShareModal
+                  shareUrl={shareUrl}
+                  onClose={() => setShowShareOptions(false)}
+                />
+              </div>
+            )}
             <div className="text-lg md:text-xl">{productDetails?.title}</div>
             <div className="">
               {productDetails.stock === 0 ? (
-                <Badge className={"bg-red-600 rounded-full text-white font-bold"}>Out of stock</Badge>
+                <Badge
+                  className={"bg-red-600 rounded-full text-white font-bold"}
+                >
+                  Out of stock
+                </Badge>
               ) : productDetails.stock <= 10 ? (
-                <Badge variant={"primary"} className="bg-red-600 text-white rounded-full border-none ">
+                <Badge
+                  variant={"primary"}
+                  className="bg-red-600 text-white rounded-full border-none "
+                >
                   left only {productDetails.stock}
                 </Badge>
               ) : null}
@@ -164,13 +199,17 @@ const ShoppingDetails = () => {
               <Button
                 variant="none"
                 className={`${
-                  checkWishlistOrNot == -1 ? "" : "bg-red-500 text-white font-bold"
+                  checkWishlistOrNot == -1
+                    ? ""
+                    : "bg-red-500 text-white font-bold"
                 } border`}
                 onClick={handleWishlist}
               >
-                <Heart  className={`${
-                  checkWishlistOrNot == -1 ? "" : "fill-red-800"
-                } `} />
+                <Heart
+                  className={`${
+                    checkWishlistOrNot == -1 ? "" : "fill-red-800"
+                  } `}
+                />
                 WishList
               </Button>
               <Button
