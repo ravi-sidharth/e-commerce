@@ -52,6 +52,10 @@ function ShoppingListing() {
   useEffect(() => {
     if (filter && sort) {
       dispatch(
+        getShoppingProduct({
+          filterParams: filter,
+          sortParams: sort,
+        })
       );
     }
   }, [dispatch, filter, sort]);
