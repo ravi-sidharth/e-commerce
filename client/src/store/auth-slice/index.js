@@ -40,7 +40,7 @@ export const userLogin = createAsyncThunk("/auth/login", async (userData) => {
 
 export const userLogout = createAsyncThunk("/auth/logout", async () => {
   try {
-    const response = await axiosInstance.get(
+    const response = await axiosInstance.post(
       `/api/auth/logout`,
       {
         withCredentials: true,
@@ -48,7 +48,6 @@ export const userLogout = createAsyncThunk("/auth/logout", async () => {
     );
     return response.data;
   } catch (error) {
-    console.log(error.response);
     return error.response.data;
   }
 });

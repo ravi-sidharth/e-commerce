@@ -60,7 +60,6 @@ const updateOrderStatus = async(req,res) => {
     const {orderId} = req.params
     const {orderStatus} = req.body
   
-    console.log(orderId,"product id")
     const order = await Order.findById(orderId)
     if(!order) {
       return res.status(400).json({

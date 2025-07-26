@@ -75,7 +75,6 @@ function UserCartItemsContent({ cartItems }) {
     });
   }
 
-  console.log(shoppingProductList, "shopping product list");
   return (
     <Card className="flex items-center justify-center flex-row gap-3 p-1 px-2">
       <img

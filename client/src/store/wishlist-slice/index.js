@@ -16,7 +16,6 @@ export const createWishlist = createAsyncThunk(
       );
       return response?.data;
     } catch (error) {
-      console.log(error?.response?.data);
       return error?.response?.data;
     }
   }
@@ -31,7 +30,6 @@ export const fetchAllWishlist = createAsyncThunk(
       );
       return response?.data;
     } catch (error) {
-      console.log(error?.response?.data);
       return error?.response?.data;
     }
   }

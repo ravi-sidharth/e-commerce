@@ -95,7 +95,6 @@ const categorySlice = createSlice({
       })
       .addCase(fetchAllCategory.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action,"payload data")
         state.categoryList = action?.payload?.success
           ? action?.payload?.categoryList
           : [];

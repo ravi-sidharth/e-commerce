@@ -20,7 +20,6 @@ function ProductImageUpload({
   function handleImageFileChange(event) {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) setImageFile(selectedFile);
-    console.log(event.target.files[0],"image")
   }
 
   function handleDragOver(event) {

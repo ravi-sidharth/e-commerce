@@ -19,7 +19,6 @@ const ShopSearch = () => {
         setSearchParams(new URLSearchParams({ search: keyword }));
       }, 1000);
       dispatch(searchProduct(keyword)).then((data) => {
-        console.log(data.payload);
       });
     } else {
       dispatch(resetsearchResult());

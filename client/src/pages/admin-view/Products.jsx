@@ -33,10 +33,11 @@ import { Label } from "@radix-ui/react-label";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProducItem from "@/components/admin-view/Product-item";
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { PlusCircleIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
+import Pagination from "@/components/common/Pagination";
 
 const AdminProducts = () => {
   const dispatch = useDispatch();
@@ -72,6 +73,11 @@ const AdminProducts = () => {
   const { subCategoryList } = useSelector((state) => state.adminSubCategory);
   const { isLoading, productList } = useSelector((state) => state.adminProduct);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(productList.length / 10);
+  const start = (currentPage - 1) * 10;
+  const end = start + 10;
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -103,11 +109,6 @@ const AdminProducts = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const checkValidation = productSchema.safeParse(formData);
-    // if (!checkValidation.success) {
-    //   setErrors(checkValidation.error.formErrors.fieldErrors);
-    //   return;
-    // }
 
     const newFormData = new FormData();
     newFormData.append("title", formData.title);
@@ -129,7 +130,7 @@ const AdminProducts = () => {
       : addProduct(newFormData);
     dispatch(action).then((data) => {
       if (data?.payload?.success) {
-        toast.success( data.payload.message);
+        toast.success(data.payload.message);
         resetData();
         dispatch(fetchAllProducts());
       } else {
@@ -177,7 +178,7 @@ const AdminProducts = () => {
             </TableHeader>
             <TableBody>
               {productList.length > 0 ? (
-                productList.map((item, index) => (
+                productList.slice(start,end).map((item, index) => (
                   <ProducItem
                     key={item._id}
                     srNo={index}
@@ -189,7 +190,7 @@ const AdminProducts = () => {
                 ))
               ) : (
                 <TableRow className="font-semibold">
-                  <TableCell>No Category</TableCell>
+                  <TableCell>No Product</TableCell>
                 </TableRow>
               )}
             </TableBody>
@@ -312,7 +313,6 @@ const AdminProducts = () => {
                     id="brand"
                     onValueChange={(value) => {
                       setFormData({ ...formData, brand: value });
-          
                     }}
                     value={formData.brand}
                   >
@@ -496,6 +496,11 @@ const AdminProducts = () => {
           </SheetContent>
         </Sheet>
       </CardContent>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </Card>
   );
 };

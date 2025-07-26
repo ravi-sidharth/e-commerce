@@ -4,7 +4,6 @@ const logger = require('../../utils/logger')
 
 const handleImageUpload = async (req, res) => {
   try {
-    console.log(req.file.buffer,"file")
       const b64 = Buffer.from(req.file.buffer).toString('base64')
       const url = "data:" + req.file.mimetype + ";base64," + b64
       const result = await uploadResult(url)
@@ -99,8 +98,7 @@ const getProducts = async (req, res) => {
       .populate("subcategory", "name")
       .sort({ _id: -1 });
 
-      console.log(productList,"product list")
-    res.status(200).json({
+      res.status(200).json({
       success: true,
       productList,
     });

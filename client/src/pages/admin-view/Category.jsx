@@ -29,6 +29,7 @@ import { Label } from "@radix-ui/react-label";
 import { PlusCircleIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from "@/components/common/Pagination";
 
 const AdminCategory = () => {
   const [openCreateCategory, setOpenCreateCategory] = useState(false);
@@ -77,18 +78,23 @@ const AdminCategory = () => {
         resetForm();
         dispatch(fetchAllCategory());
       } else {
-        toast.error(data?.payload?.message)
+        toast.error(data?.payload?.message);
       }
     });
   };
 
   useEffect(() => {
-    dispatch(fetchAllCategory())
+    dispatch(fetchAllCategory());
   }, [dispatch]);
 
   const { isLoading, categoryList } = useSelector(
     (state) => state.adminCategory
   );
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(categoryList.length / 10);
+  const start = (currentPage - 1) * 10;
+  const end = start + 10;
 
   return (
     <Card>
@@ -113,7 +119,7 @@ const AdminCategory = () => {
               </TableHeader>
               <TableBody>
                 {categoryList.length > 0 ? (
-                  categoryList.map((item, index) => (
+                  categoryList.slice(start,end).map((item, index) => (
                     <CategoryItems
                       key={item.name}
                       srNo={index}
@@ -204,6 +210,14 @@ const AdminCategory = () => {
           </SheetContent>
         </Sheet>
       </CardContent>
+
+      {categoryList.length > 0 ? (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      ) : null}
     </Card>
   );
 };

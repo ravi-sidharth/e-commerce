@@ -36,6 +36,7 @@ import SubCategoryItem from "@/components/admin-view/SubCategory-item";
 import { PlusCircleIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
+import Pagination from "@/components/common/Pagination";
 
 const AdminSubCategory = () => {
   const dispatch = useDispatch();
@@ -53,6 +54,11 @@ const AdminSubCategory = () => {
     (state) => state.adminSubCategory
   );
   const { categoryList } = useSelector((state) => state.adminCategory);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(subCategoryList.length / 10);
+  const start = (currentPage - 1) * 10;
+  const end = start + 10;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,7 +113,7 @@ const AdminSubCategory = () => {
             </TableHeader>
             <TableBody>
               {subCategoryList.length > 0 ? (
-                subCategoryList.map((item, index) => (
+                subCategoryList.slice(start,end).map((item, index) => (
                   <SubCategoryItem
                     key={item._id}
                     srNo={index}
@@ -192,6 +198,12 @@ const AdminSubCategory = () => {
           </SheetContent>
         </Sheet>
       </CardContent>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+
     </Card>
   );
 };

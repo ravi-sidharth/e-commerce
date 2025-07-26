@@ -15,7 +15,6 @@ export const fetchOrderDetailsById = createAsyncThunk(
       const response = await axiosInstance.get(
         `/api/admin/order/details/${orderId}`
       );
-      console.log(response.data, "data order data")
       return response?.data;
     } catch (error) {
       console.error("Create Order Error", error?.response?.data);
@@ -43,7 +42,6 @@ export const updateOrderStatus = createAsyncThunk(
   "/shop/updateOrderStatus",
   async ({ orderId, formData }) => {
     try {
-      console.log(orderId, formData);
       const response = await axiosInstance.put(
         `/api/admin/order/update/${orderId}`,
         formData

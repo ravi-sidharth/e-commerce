@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { Skeleton } from "../../components/ui/skeleton";
 import ProductFilter from "../../components/shopping-view/Productfilter";
-import Pagination from "./Pagination";
+import Pagination from "@/components/common/Pagination";
 
 function createSearchParamsHelper(filterParams) {
   const queryParams = [];
@@ -34,12 +34,15 @@ function ShoppingListing() {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState(null);
 
-  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
-  const limit = 2; 
 
-  const { isLoading, shoppingProductList, total } = useSelector(
+  const { isLoading, shoppingProductList } = useSelector(
     (state) => state.shoppingProduct
   );
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(shoppingProductList.length / 2);
+  const start = (currentPage - 1) * 2;
+  const end = start + 2;
 
   useEffect(() => {
     setSort("low-to-high");
@@ -48,16 +51,17 @@ function ShoppingListing() {
 
   useEffect(() => {
     if (filter && sort) {
-      dispatch(getShoppingProduct({ filterParams: filter, sortParams: sort, page, limit }));
+      dispatch(
+      );
     }
-  }, [dispatch, filter, sort, page]);
+  }, [dispatch, filter, sort]);
 
   useEffect(() => {
     if (filter && Object.keys(filter).length > 0) {
       const createQueryString = createSearchParamsHelper(filter);
-      setSearchParams(new URLSearchParams(`${createQueryString}&page=${page}`));
+      setSearchParams(new URLSearchParams(`${createQueryString}`));
     }
-  }, [filter, page]);
+  }, [filter]);
 
   function handleFilter(getSectionId, getCurrentOptions) {
     let copyFilter = { ...filter };
@@ -112,7 +116,11 @@ function ShoppingListing() {
                 >
                   {sortOptions.map((item) => {
                     return (
-                      <DropdownMenuRadioItem className="bg-white" key={item.id} value={item.id}>
+                      <DropdownMenuRadioItem
+                        className="bg-white"
+                        key={item.id}
+                        value={item.id}
+                      >
                         {item.label}
                       </DropdownMenuRadioItem>
                     );
@@ -138,7 +146,7 @@ function ShoppingListing() {
                   </div>
                 ))
             ) : shoppingProductList && shoppingProductList.length > 0 ? (
-              shoppingProductList?.map((item) => {
+              shoppingProductList.slice(start,end)?.map((item) => {
                 return <ShoppingProductItem key={item._id} product={item} />;
               })
             ) : (
@@ -148,13 +156,12 @@ function ShoppingListing() {
             )}
           </div>
           <Pagination
-            page={page}
-            total={total || 0}
-            limit={limit}
-            onPageChange={setPage}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
           />
         </div>
-      </div>      
+      </div>
     </div>
   );
 }

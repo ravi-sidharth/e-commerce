@@ -17,7 +17,6 @@ export const addBrand = createAsyncThunk("/brand/add", async (formData) => {
     );
     return response.data;
   } catch (error) {
-    console.log("Axios Error:", error.response);
     return error.response.data;
   }
 });
@@ -35,7 +34,6 @@ export const updateBrand = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log("Axios Error:", error.response);
       return error.response.data;
     }
   }
@@ -52,7 +50,6 @@ export const deleteBrand = createAsyncThunk("/brand/delete", async (id) => {
     );
     return response.data;
   } catch (error) {
-    console.log("Axios Error:", error.response);
     return error.response.data;
   }
 });
@@ -67,7 +64,6 @@ export const fetchAllBrand = createAsyncThunk("/brand/list", async () => {
     );
     return response.data;
   } catch (error) {
-    console.log("Axios Error:", error.response);
     return error.response.data;
   }
 });

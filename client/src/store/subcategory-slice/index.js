@@ -9,7 +9,6 @@ const initialState = {
 export const addSubCategory = createAsyncThunk(
   "/subcategory/add",
   async (formData) => {
-    console.log(formData);
     try {
       const response = await axiosInstance.post(
         `/api/admin/subcategory/add`,
@@ -20,7 +19,6 @@ export const addSubCategory = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log("Axios Error:", error.response);
       return error.response.data;
     }
   }
@@ -39,7 +37,6 @@ export const updateSubCategory = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log("Axios Error:", error.response);
       return error.response.data;
     }
   }
@@ -58,7 +55,6 @@ export const deleteSubCategory = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log("axiosInstance Error:", error.response);
       return error.response.data;
     }
   }
@@ -76,7 +72,6 @@ export const fetchAllSubCategory = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log("axiosInstance Error:", error.response);
       return error.response.data;
     }
   }

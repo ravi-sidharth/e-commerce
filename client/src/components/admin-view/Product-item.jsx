@@ -84,7 +84,7 @@ const ProducItem = ({
                 <img
                   src={image}
                   alt={`ProductImage${index + 1}`}
-                  className="h-full w-full  object-cover rounded-lg"
+                  className="h-full w-full object-cover rounded-lg"
                 />
               </div>
             );

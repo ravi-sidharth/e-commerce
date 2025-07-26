@@ -28,7 +28,6 @@ function ShoppingHome() {
   useEffect(() => {
     if (!featureImageList || featureImageList.length === 0) return;
     const timer = setInterval(() => {
-      console.log("hellow");
       setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
     }, 3000);
 
@@ -40,8 +39,6 @@ function ShoppingHome() {
     dispatch(fetchAllCategory());
   }, [dispatch]);
   
-  console.log(featureImageList,"feature image list")
-
   return (
     <div className="flex flex-col min-h-screen">
       <div className="relative h-[280px] lg:h-[650px]">

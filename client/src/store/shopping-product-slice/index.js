@@ -20,7 +20,6 @@ export const getShoppingProduct = createAsyncThunk(
         `/api/shopping/product/list?${query}`,
         { withCredentials: true }
       );
-      console.log(response.data ,"shopping product")
       return response?.data;
     } catch (error) {
       console.error("Error Fetching Products:", error.response);

@@ -19,11 +19,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { brandSchema } from "@/config/validationSechma";
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { addBrand, fetchAllBrand, updateBrand } from "@/store/brand-slice";
 import { PlusCircleIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from "@/components/common/Pagination";
 
 const AdminBrand = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,11 @@ const AdminBrand = () => {
   }, [dispatch]);
 
   const { isLoading, brandList } = useSelector((state) => state.adminBrand);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(brandList.length / 10);
+  const start = (currentPage - 1) * 10;
+  const end = start + 10;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,7 +66,7 @@ const AdminBrand = () => {
       : addBrand(formData);
     dispatch(action).then((data) => {
       if (data.payload.success) {
-        toast.success(data.payload.message );
+        toast.success(data.payload.message);
         dispatch(fetchAllBrand());
         resetForm();
       } else {
@@ -89,7 +95,7 @@ const AdminBrand = () => {
             </TableHeader>
             <TableBody>
               {brandList.length > 0 ? (
-                brandList.map((item, index) => {
+                brandList.slice(start,end).map((item, index) => {
                   return (
                     <BrandItem
                       srNo={index}
@@ -152,7 +158,7 @@ const AdminBrand = () => {
                     <p className="text-red-600">{errors.name[0]}</p>
                   )}
                 </div>
-                <div >
+                <div>
                   <Button className="w-full">
                     {isLoading ? "Saving" : "Save"}
                   </Button>
@@ -162,6 +168,15 @@ const AdminBrand = () => {
           </SheetContent>
         </Sheet>
       </CardContent>
+      {brandList && brandList.length > 0 ? (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      ) : (
+        null
+      )}
     </Card>
   );
 };
