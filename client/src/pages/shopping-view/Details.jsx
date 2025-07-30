@@ -22,7 +22,7 @@ import ShareModal from "@/components/common/ShareModal";
 const ShoppingDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const [size, setSize] = useState(null);
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
@@ -134,7 +134,7 @@ const ShoppingDetails = () => {
               </div>
             </div>
             {showShareOptions && (
-              <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center">
+              <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
                 <ShareModal
                   shareUrl={shareUrl}
                   onClose={() => setShowShareOptions(false)}

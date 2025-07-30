@@ -6,7 +6,7 @@ import { userLogin } from "@/store/auth-slice";
 import { Label } from "@radix-ui/react-label";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -15,6 +15,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/shop/home";
+  console.log(from,"from")
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,6 +40,7 @@ const Login = () => {
           email: "",
           password: "",
         });
+        navigate(from, { replace: true });
       } else {
         toast.error(data.payload.message);
       }

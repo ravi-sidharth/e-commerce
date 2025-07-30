@@ -41,58 +41,57 @@ function App() {
   }
 
   return (
-    <div className="" >
-    <Routes >
-      <Route
-        path="/"
-        element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-            <AuthLayout />
-          </CheckAuth>
-        }
-      >
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-      </Route>
+    <div >
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <AuthLayout />
+            </CheckAuth>
+          }
+        >
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
 
-      <Route
-        path="/admin"
-        element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-            <AdminLayout />
-          </CheckAuth>
-        }
-      >
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="products" element={<AdminProducts />} />
-        <Route path="brand" element={<AdminBrand />} />
-        <Route path="orders" element={<AdminOrders />} />
-        <Route path="category" element={<AdminCategory />} />
-        <Route path="subcategory" element={<AdminSubCategory />} />
-        <Route path="features" element={<AdminFeatures />} />
-      </Route>
+        <Route
+          path="/admin"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <AdminLayout />
+            </CheckAuth>
+          }
+        >
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="brand" element={<AdminBrand />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="category" element={<AdminCategory />} />
+          <Route path="subcategory" element={<AdminSubCategory />} />
+          <Route path="features" element={<AdminFeatures />} />
+        </Route>
 
-      <Route
-        path="/shop"
-        element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-            <ShoppingLayout />
-          </CheckAuth>
-        }
-      >
-        <Route path="home" element={<ShoppingHome />} />
-        <Route path="checkout" element={<ShoppingCheckout />} />
-        <Route path="listing" element={<ShoppingListing />} />
-        <Route path="orders" element={<ShoppingOrder />} />
-        <Route path="search" element={<ShopSearch />} />
-        <Route path="wishlist" element={<Wishlist />} />
-        <Route path="details/:id" element={<ShoppingDetails />} />
-      </Route>
+        <Route
+          path="/shop"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <ShoppingLayout />
+            </CheckAuth>
+          }
+        >
+          <Route path="home" element={<ShoppingHome />} />
+          <Route path="checkout" element={<ShoppingCheckout />} />
+          <Route path="listing" element={<ShoppingListing />} />
+          <Route path="orders" element={<ShoppingOrder />} />
+          <Route path="search" element={<ShopSearch />} />
+          <Route path="wishlist" element={<Wishlist />} />
+          <Route path="details/:id" element={<ShoppingDetails />} />
+        </Route>
 
-      <Route path="/unauth-page" element={<UnauthPage />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-
+        <Route path="/unauth-page" element={<UnauthPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }

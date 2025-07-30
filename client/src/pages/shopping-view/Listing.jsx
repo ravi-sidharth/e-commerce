@@ -40,9 +40,9 @@ function ShoppingListing() {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(shoppingProductList.length / 2);
-  const start = (currentPage - 1) * 2;
-  const end = start + 2;
+  const totalPages = Math.ceil(shoppingProductList.length / 10);
+  const start = (currentPage - 1) * 10;
+  const end = start + 10;
 
   useEffect(() => {
     setSort("low-to-high");
@@ -86,10 +86,9 @@ function ShoppingListing() {
   }
 
   return (
-    <div className="py-6 flex flex-col sm:flex-row h-screen gap-3">
+    <div className="py-6 flex flex-col sm:flex-row h-screen gap-3 overflow-y-auto">
       <ProductFilter handleFilter={handleFilter} filter={filter} />
-
-      <div className="flex-1 h-full overflow-y-auto">
+      <div className="flex-1">
         <div className="sticky top-0 z-50 bg-white flex flex-col md:flex-row justify-between items-center px-10 pb-1">
           <div className="font-extrabold text-lg ">All Product</div>
           <div className="flex items-center gap-4">
