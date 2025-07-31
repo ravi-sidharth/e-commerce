@@ -40,9 +40,7 @@ export const deleteCartItems = createAsyncThunk(
   async ({ userId, productId }) => {
     try {
       const response = await axiosInstance.delete(
-        `${
-          import.meta.env.VITE_BACKEND_URI
-        }/api/shopping/cart/delete/${userId}/${productId}`
+        `/api/shopping/cart/delete/${userId}/${productId}`
       );
       return response?.data;
     } catch (error) {

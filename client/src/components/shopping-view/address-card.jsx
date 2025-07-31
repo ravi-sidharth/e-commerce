@@ -11,9 +11,12 @@ const AddressCard = ({
   selecteAddress,
   setSelecteAddress,
 }) => {
+
+  console.log(addressInfo._id,"address info Id")
+  console.log(selecteAddress,"selected Adress")
   return (
     <Card
-      className={`${addressInfo?._id === selecteAddress ? "" : " border-black"}`}
+      className={`${addressInfo?._id === selecteAddress ? " border border-black bg-gray-200" : "bg-gray-200 shadow-2xl"}`}
       onClick={() => {
         if (setUserAddress) {
           setUserAddress({
