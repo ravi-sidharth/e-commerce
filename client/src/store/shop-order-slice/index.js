@@ -1,6 +1,5 @@
 import axiosInstance from "@/utils/axiosInstance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   isLoading: false,
@@ -61,7 +60,7 @@ export const fetchOrderDetailsById = createAsyncThunk(
   "/shop/fetchOrderDetailsById",
   async (orderId) => {
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `/api/shopping/order/details/${orderId}`
       );
       return response?.data;

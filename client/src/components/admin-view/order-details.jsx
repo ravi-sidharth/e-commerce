@@ -20,6 +20,7 @@ const initailFormData = {
   orderStatus: "",
 };
 const AdminOrderDetailsView = ({ orderDetails }) => {
+  console.log(orderDetails,"orderDetailsx")
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initailFormData);
   function handleUpdateStatus(e) {
@@ -75,9 +76,15 @@ const AdminOrderDetailsView = ({ orderDetails }) => {
             <p className="font-medium">Order Status</p>
             <Label>
               <Badge
-                className={`font-bold text-white rounded-full ${orderDetails?.orderStatus=='Delivered' ? 'bg-green-500': orderDetails?.orderStatus==="Cancelled"? 'bg-red-500':'bg-black'}`}
+                className={`font-bold text-white rounded-full ${
+                  orderDetails?.orderStatus == "Delivered"
+                    ? "bg-green-500"
+                    : orderDetails?.orderStatus === "Cancelled"
+                    ? "bg-red-500"
+                    : "bg-black"
+                }`}
               >
-              {orderDetails?.orderStatus}
+                {orderDetails?.orderStatus}
               </Badge>
             </Label>
           </div>
@@ -134,37 +141,41 @@ const AdminOrderDetailsView = ({ orderDetails }) => {
 
         <div>
           <form onSubmit={handleUpdateStatus}>
-            <div className="space-y-3">
-              <div className="space-y-2">
-                <Label>Status</Label>
-                <Select
-
-                  value={formData.orderStatus}
-                  onValueChange={(value) => {
-                    setFormData({ ...formData, orderStatus: value });
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Status" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white">
-                    <SelectItem value="Pending">Pending</SelectItem>
-                    <SelectItem value="Confirmed">Confirmed</SelectItem>
-                    <SelectItem value="Shipped">Shipped</SelectItem>
-                    <SelectItem value="Delivered">Delivered</SelectItem>
-                    <SelectItem value="Cancelled">Cancelled</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Button
-                  disabled={formData.orderStatus === ""}
-                  className="w-full"
-                >
-                  Update Order Status
-                </Button>
-              </div>
-            </div>
+            {orderDetails.orderStatus !== "Delivered" &&
+              orderDetails.orderStatus !== "Cancelled" && (
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <Label>Status</Label>
+                    <Select
+                      value={formData.orderStatus}
+                      onValueChange={(value) => {
+                        setFormData({ ...formData, orderStatus: value });
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Status" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white">
+                        <SelectItem value="Pending">Pending</SelectItem>
+                        <SelectItem value="Confirmed">Confirmed</SelectItem>
+                        <SelectItem value="Shipped">Shipped</SelectItem>
+                        <SelectItem value="Delivered">Delivered</SelectItem>
+                        <SelectItem value="Cancelled">Cancelled</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Button
+                      disabled={
+                        formData?.orderStatus === ""
+                      }
+                      className="w-full"
+                    >
+                      Update Order Status
+                    </Button>
+                  </div>
+                </div>
+              )}
           </form>
         </div>
       </div>

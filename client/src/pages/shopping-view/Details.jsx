@@ -186,7 +186,7 @@ const ShoppingDetails = () => {
                       key={item}
                       onClick={(e) => setSize(e.target.innerText)}
                       className={` ${
-                        size === item ? "border border-black" : null
+                        size === item ? "outline outline-black" : null
                       } w-10 h-10 flex justify-center items-center bg-slate-200 rounded-full`}
                     >
                       {item}
