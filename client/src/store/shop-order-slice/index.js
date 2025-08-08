@@ -25,7 +25,7 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-export const processPeyment = createAsyncThunk(
+export const processPayment = createAsyncThunk(
   "/order/payment-process",
   async (totalAmount) => {
     try {

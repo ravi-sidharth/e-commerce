@@ -8,7 +8,7 @@ import { useState } from "react";
 import { toast } from "sonner"
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { createOrder, processPeyment } from "@/store/shop-order-slice";
+import { createOrder, processPayment } from "@/store/shop-order-slice";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchCartItems } from "@/store/cart-slice";
 
@@ -67,10 +67,10 @@ function ShoppingCheckout() {
         }
       });
     } else if (paymentMethod === "Razorpay") {
-      dispatch(processPeyment({ totalAmount: totalSalePrice })).then((data) => {
+      dispatch(processPayment({ totalAmount: totalSalePrice })).then((data) => {
         if (data.payload.success) {
           const options = {
-            key: import.meta.env.VITE_ROZARPAY_SECRET_KEY, 
+            key: import.meta.env.VITE_ROZORPAY_SECRET_KEY, 
             amount: data.payload.order.amount, 
             currency: "INR",
             name: "Acme Corp",
