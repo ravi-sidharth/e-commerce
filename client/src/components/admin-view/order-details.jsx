@@ -20,7 +20,6 @@ const initailFormData = {
   orderStatus: "",
 };
 const AdminOrderDetailsView = ({ orderDetails }) => {
-  console.log(orderDetails,"orderDetailsx")
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initailFormData);
   function handleUpdateStatus(e) {

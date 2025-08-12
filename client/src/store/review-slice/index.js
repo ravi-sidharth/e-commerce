@@ -17,7 +17,7 @@ export const createReview = createAsyncThunk(
       return response?.data;
     } catch (error) {
       console.error("Create Order Error", error?.response?.data);
-      return error?.response?.data;
+      return error?.response?.data.message;
     }
   }
 );

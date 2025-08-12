@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const {corsConfig} = require('./config/corsConfig')
 const helmet = require('helmet')
-const cookieParser = require('cookie-parser')
 const connectToMongoDB = require('./db/connectToMongoDB')
 const logger = require('./utils/logger')
 
@@ -32,7 +31,6 @@ connectToMongoDB()
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
-app.use(cookieParser())
 app.use(corsConfig())
 app.use(helmet())
 

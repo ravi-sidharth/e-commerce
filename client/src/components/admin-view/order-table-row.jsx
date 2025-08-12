@@ -13,12 +13,9 @@ const AdminOrderTableRow = ({ orderItem }) => {
 
   const { orderDetails } = useSelector((state) => state.adminOrder);
   function handleDetails(getOrderId) {
-    console.log(getOrderId,"order Id ")
     dispatch(fetchOrderDetailsById(getOrderId));
     setOpenDetailsDialog(true);
   }
-
-  console.log(orderItem,"order Iterm")
 
   return (
     <TableRow key={orderItem._id}>

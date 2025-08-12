@@ -51,6 +51,9 @@ const Review = ({ productDetails }) => {
         dispatch(
           fetchProductReview({ productId: productDetails?._id, limitValue })
         );
+      } else {
+        toast.error(data.payload)
+        setOpenReviewDailog(false);
       }
     });
   }

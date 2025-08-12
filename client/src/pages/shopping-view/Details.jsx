@@ -31,7 +31,7 @@ const ShoppingDetails = () => {
   const { isLoading, cartItems } = useSelector((state) => state.shoppingCart);
   const [showShareOptions,setShowShareOptions] = useState(false)
 
-  const shareUrl = `http://localhost:5173${location.pathname}`
+  const shareUrl = `${import.meta.env.VITE_CLIENT_URL}${location.pathname}`
 
   useEffect(() => {
     dispatch(fetchCartItems({ userId: user?.id }));
