@@ -8,7 +8,7 @@ const ReviewStar = ({ starCount, value, setStarCount }) => {
       width="40"
       height="40"
       viewBox="0 0 24 24"
-      fill={value<=starCount?"#FFD700" : "#D3D3D8"} // Yellow on hover or selected
+      fill={value<=starCount?"#FFD700" : "#D3D3D8"} 
       xmlns="http://www.w3.org/2000/svg"
       className="transition-all duration-300 ease-in-out cursor-pointer"
       aria-label={`Rate ${value} star`}

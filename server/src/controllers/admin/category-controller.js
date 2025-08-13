@@ -106,7 +106,7 @@ const deleteCategory = async (req, res) => {
 
 const getCategory = async (req, res) => {
     try {
-        const categoryList = await Category.find({});
+        const categoryList = await Category.find({}).sort({createdAt :-1});
         res.status(200).json({
             success: true,
             categoryList

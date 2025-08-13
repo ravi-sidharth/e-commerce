@@ -12,14 +12,23 @@ const addProductReview = async (req, res) => {
             });
         }
 
-        const isProductUserBuy = await Order.findOne({id:product , user})
+        const isProductUserBuy = await Order.findOne({"products.product":product,user})
         if (!isProductUserBuy) {
             return res.status(400).json({
                 success:false,
                 message: "You have to first purchase this product then you can able to submit review."
             })
         }
-        const review = await Review.create({
+
+        let review = await Review.findOne({user,product}) 
+        if (review) {
+            return res.status(400).json({
+                success:false,
+                message:"You already review this product, you can't review again."
+            })
+        }
+
+        review = await Review.create({
             user,
             product,
             comment,

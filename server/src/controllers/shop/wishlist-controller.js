@@ -70,7 +70,7 @@ const fetchAllWishlist = async (req, res) => {
             return item._id;
         })
 
-        if (wishlist.products.length > wishlistItems) {
+        if (wishlist.products.length > wishlistItems.length) {
             wishlist.products = wishlistItems;
             await wishlist.save();
         }
